@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-$(document).ready(function() {
+$(function() {
     const mySelector = $('body');
     mySelector.append('<p>Holberton Dashboard</p>');
     mySelector.append('<p>Dashboard data for the students</p>');
