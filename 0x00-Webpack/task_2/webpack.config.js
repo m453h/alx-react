@@ -7,6 +7,7 @@ module.exports = {
     },
     performance: {
         maxAssetSize: 1000000,
+        maxEntrypointSize: 1000000,
     },
     output: {
         path: path.resolve(__dirname, 'public'),
@@ -19,8 +20,17 @@ module.exports = {
             use: ['style-loader', 'css-loader'],
           },
           {
-            test: /\.(png|svg|jpg|jpeg|gif)$/i,
-            type: 'asset/resource',
+            test: /\.(png|jpe?g|gif)$/i,
+            use: [
+              'file-loader',
+              {
+                loader: 'image-webpack-loader',
+                options: {
+                  bypassOnDebug: true,
+                  disable: true,
+                },
+              },
+            ],
           },
         ],
     },
