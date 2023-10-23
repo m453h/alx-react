@@ -1,4 +1,4 @@
-import $ from "jquery";
+const $ = require( "jquery" );
 
 $(function() {
     const mySelector = $('body');
