@@ -12,6 +12,6 @@ let counter = 0;
 function updateCounter() {
     counter++;
     $("#count").html(`${counter} clicks on the button`);
-};
+}
 
 $('button').on('click', _.debounce(updateCounter, 500));
