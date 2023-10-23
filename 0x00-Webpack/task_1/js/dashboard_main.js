@@ -11,7 +11,7 @@ function updateCounter() {
 $('body').append('<p>Holberton Dashboard</p>');
 $('body').append('<p>Dashboard data for the students</p>');
 
-const $button = $("<button>Click here to get started</button>").on(
+const $button = $("<button type='button'>Click here to get started</button>").on(
     'click',
     _.debounce(updateCounter, 500, {'leading': true, 'trailing': false})
 );
