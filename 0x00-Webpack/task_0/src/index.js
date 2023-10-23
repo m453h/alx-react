@@ -1,6 +1,5 @@
 const $ = require( "jquery" );
 
-const mySelector = $('body');
-mySelector.append('<p>Holberton Dashboard</p>');
-mySelector.append('<p>Dashboard data for the students</p>');
-mySelector.append('<p>Copyright - Holberton School</p>');
+$('body').append('<p>Holberton Dashboard</p>');
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<p>Copyright - Holberton School</p>');
