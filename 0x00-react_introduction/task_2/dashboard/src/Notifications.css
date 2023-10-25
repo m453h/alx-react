@@ -3,6 +3,16 @@
 }
 
 .Notifications {
-    border: 1px solid var(--primar-color);
+    border: 1px dashed var(--primar-color);
     padding: 2rem;
+    width:90%;
+    margin: 10px auto;
+}
+
+[data="default"] {
+    color: #1D0563;
+}
+
+[data="urgent"] {
+    color: #F02201;
 }
