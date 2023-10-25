@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-intro/static/css/main.1b7109b0.css",
+    "main.js": "/react-intro/static/js/main.28c9c2b2.js",
+    "static/js/787.545aecf5.chunk.js": "/react-intro/static/js/787.545aecf5.chunk.js",
+    "static/media/close-icon.png": "/react-intro/static/media/close-icon.36c201dff2136877bd1a.png",
+    "static/media/Holberton-logo.jpg": "/react-intro/static/media/Holberton-logo.24bab5d633e36ca8d17e.jpg",
+    "index.html": "/react-intro/index.html",
+    "main.1b7109b0.css.map": "/react-intro/static/css/main.1b7109b0.css.map",
+    "main.28c9c2b2.js.map": "/react-intro/static/js/main.28c9c2b2.js.map",
+    "787.545aecf5.chunk.js.map": "/react-intro/static/js/787.545aecf5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1b7109b0.css",
+    "static/js/main.28c9c2b2.js"
+  ]
+}
