@@ -1,5 +1,5 @@
-import './App.css';
-import logo from '../assets/Holberton-logo.jpg';
+import "./App.css";
+import logo from "../assets/Holberton-logo.jpg";
 import {getFullYear, getFooterCopy} from "../utils/utils";
 
 function App() {
