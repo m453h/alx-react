@@ -19,9 +19,9 @@ function Notifications({ displayDrawer}) {
                                 style={{
                                     background: "none",
                                     border: "none",
-                                    position: "absolute",
-                                    right: "4%",
-                                    top: "2%",
+                                    position: "relative",
+                                    right: "-94%",
+                                    top: "-10%",
                                     cursor: "pointer"
                                 }}>
                             <img src={close_icon} alt='Close icon' style={{width: '24px', height: '24px'}}/>
