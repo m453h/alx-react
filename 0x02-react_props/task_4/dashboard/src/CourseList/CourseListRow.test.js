@@ -1,5 +1,4 @@
 import React from "react";
-import CourseList from "./CourseList";
 import CourseListRow from "./CourseListRow";
 import { shallow } from "enzyme";
 
@@ -23,4 +22,3 @@ describe('CourseListRow component tests', () => {
         expect(wrapper.html()).toBe('<tr><td>First Cell</td><td>Second Cell</td></tr>');
     });
 });
-
