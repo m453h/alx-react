@@ -1,11 +1,10 @@
 import React from 'react';
 import './Notifications.css';
 import close_icon from '../assets/close-icon.png';
-import { getLatestNotification } from "../utils/utils";
 import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 
-function Notifications({ displayDrawer}) {
+function Notifications({ displayDrawer, listNotifications}) {
     return (
         <React.Fragment>
             <div className="menuItem">
@@ -28,9 +27,18 @@ function Notifications({ displayDrawer}) {
                         </button>
                         <p>Here is the list of notifications</p>
                         <ul>
-                            <NotificationItem type={'default'} value={'New course available'}/>
-                            <NotificationItem type={'urgent'} value={'New resume available'}/>
-                            <NotificationItem type="urgent" html={{__html: getLatestNotification()}}/>
+                            {listNotifications && listNotifications.length > 0 ? (
+                                listNotifications.map((notification, index) => (
+                                    <NotificationItem
+                                        key={index}
+                                        type={notification.type}
+                                        value={notification.value}
+                                        html={notification.html}
+                                    />
+                                ))
+                            ) : (
+                                <li>No new notification for now</li>
+                            )}
                         </ul>
                     </div>
             )}

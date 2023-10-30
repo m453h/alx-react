@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import "./App.css";
 import PropTypes from 'prop-types';
 import CourseList from "../CourseList/CourseList";
+import {getLatestNotification} from "../utils/utils";
 
 const listCourses = [
     { id: 1, name: "ES6", credit: 60 },
@@ -13,13 +14,20 @@ const listCourses = [
     { id: 3, name: "React", credit: 40 },
 ];
 
+const listNotifications = [
+    { id: 1, type: "default", value: "New course available" },
+    { id: 2, type: "urgent", value: "New resume available" },
+    { id: 3, type: "urgent", html: {__html: getLatestNotification()}},
+];
+
+
 function App(props) {
     const isLoggedIn = props.isLoggedIn;
 
     return (
       <React.Fragment>
           <div className='root-notifications'>
-              <Notifications />
+              <Notifications listNotifications={listNotifications} />
           </div>
           <div className="App">
               <Header />
