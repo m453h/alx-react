@@ -10,8 +10,8 @@ function NotificationItem({ type, html, value }) {
     }
 
     if (html) {
-        return (
-            <li data-urgent dangerouslySetInnerHTML={{ __html: html }}></li>
+        return(
+            <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
         );
     }
 }

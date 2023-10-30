@@ -2,6 +2,7 @@ import React from 'react';
 import './Notifications.css';
 import close_icon from '../assets/close-icon.png';
 import { getLatestNotification } from "../utils/utils";
+import NotificationItem from "./NotificationItem";
 
 function Notifications() {
     return (
@@ -21,9 +22,9 @@ function Notifications() {
                 <img src={close_icon} alt='Close icon' style={{ width: '24px', height: '24px' }}/>
             </button>
             <ul>
-                <li data="default">New course available</li>
-                <li data="urgent">New resume available</li>
-                <li data="urgent" dangerouslySetInnerHTML={{ __html: getLatestNotification() }}></li>
+                <NotificationItem type={'default'} value={'New course available'}/>
+                <NotificationItem type={'urgent'} value={'New resume available'}/>
+                <NotificationItem type="urgent" html={{ __html: getLatestNotification() }} />
             </ul>
         </div>
     );

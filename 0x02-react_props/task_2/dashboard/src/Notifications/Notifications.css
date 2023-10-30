@@ -9,10 +9,10 @@
     margin: 10px auto;
 }
 
-[data="default"] {
+[data-notification-type="default"] {
     color: #1D0563;
 }
 
-[data="urgent"] {
+[data-notification-type="urgent"] {
     color: #F02201;
 }

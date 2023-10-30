@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
+import NotificationItem from './NotificationItem';
 
 describe('Notifications Component rendering tests', () => {
     it('renders <Notifications /> without crashing', () => {
@@ -10,7 +11,7 @@ describe('Notifications Component rendering tests', () => {
 
     it('renders three <li> items', () => {
         const wrapper = shallow(<Notifications />);
-        const listItems = wrapper.find('ul li');
+        const listItems = wrapper.find(NotificationItem);
         expect(listItems).toHaveLength(3);
     });
 

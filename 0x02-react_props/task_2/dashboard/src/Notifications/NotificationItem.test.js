@@ -16,7 +16,14 @@ describe("Notification item rendering tests", () => {
 
     it('renders correct output for html props', () => {
         const wrapper = shallow(<NotificationItem />);
-        wrapper.setProps({ html: "<u>test</u>" });
-        expect(wrapper.html()).toEqual('<li data-urgent="true"><u>test</u></li>');
+        wrapper.setProps(
+            {
+                type: 'urgent',
+                html: {
+                    __html: "<u>test</u>"
+                }
+            }
+        );
+        expect(wrapper.html()).toEqual('<li data-notification-type="urgent"><u>test</u></li>');
     });
 });
