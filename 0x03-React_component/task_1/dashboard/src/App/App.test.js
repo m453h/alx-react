@@ -94,4 +94,9 @@ describe('When Ctrl + h is pressed', () => {
         expect(alertSpy).toHaveBeenCalledWith('Logging you out');
         wrapper.unmount();
     });
+
+    afterAll(() => {
+        alertSpy.mockRestore();
+        jest.clearAllMocks();
+    });
 });
