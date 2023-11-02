@@ -21,15 +21,6 @@ const listNotifications = [
 ];
 
 class App extends React.Component {
-
-    static propTypes = {
-        isLoggedIn: PropTypes.bool,
-    };
-
-    static defaultProps = {
-        isLoggedIn: false,
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -49,5 +40,13 @@ class App extends React.Component {
         );
     }
 }
+
+App.defaultProps = {
+    isLoggedIn: false,
+};
+
+App.propTypes = {
+    isLoggedIn: PropTypes.bool,
+};
 
 export default App;
