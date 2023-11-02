@@ -21,18 +21,16 @@ const listNotifications = [
 ];
 
 class App extends Component {
-    static defaultProps = {
-        isLoggedIn: false,
-    }
 
     static propTypes = {
         isLoggedIn: PropTypes.bool,
     };
 
+    static defaultProps = {
+        isLoggedIn: false,
+    }
 
     render() {
-        const { isLoggedIn } = this.props;
-
         return (
             <React.Fragment>
                 <div className='root-notifications'>
@@ -41,7 +39,7 @@ class App extends Component {
                 <div className="App">
                     <Header />
                     <div className="App-body">
-                        {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+                        {this.props.isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
                     </div>
                     <div className='App-footer'>
                         <Footer />
