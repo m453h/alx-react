@@ -1,4 +1,4 @@
-import React, {Component } from 'react';
+import React from 'react';
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Login from "../Login/Login";
@@ -10,7 +10,7 @@ import { getLatestNotification } from "../utils/utils";
 
 
 
-class App extends Component {
+class App extends React.Component {
 
     listCourses = [
         { id: 1, name: "ES6", credit: 60 },
@@ -42,14 +42,14 @@ class App extends Component {
             </React.Fragment>
         );
     }
+
+    static defaultProps = {
+        isLoggedIn: false,
+    };
+
+    static propTypes = {
+        isLoggedIn: PropTypes.bool,
+    };
 }
-
-App.defaultProps = {
-    isLoggedIn: false,
-};
-
-App.propTypes = {
-    isLoggedIn: PropTypes.bool,
-};
 
 export default App;
