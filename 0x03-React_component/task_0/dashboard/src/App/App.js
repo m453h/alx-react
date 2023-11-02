@@ -27,9 +27,7 @@ class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className='root-notifications'>
-                    <Notifications listNotifications={this.listNotifications} />
-                </div>
+                <Notifications listNotifications={this.listNotifications} />
                 <div className="App">
                     <Header />
                     <div className="App-body">
