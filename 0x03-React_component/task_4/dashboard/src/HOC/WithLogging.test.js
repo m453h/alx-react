@@ -1,27 +1,30 @@
-import React from 'react';
+import React from "react";
+import { shallow } from "enzyme";
+import WithLogging from "./WithLogging";
 
-const WithLogging = (WrappedComponent) => {
-    class WithLoggingComponent extends React.Component {
 
-        const
-        componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+describe("WithLogging HOC tests", () => {
+    it("should call console.log on mount and dismount (total number of calls = 2)", () => {
+        const TestComponent = () => <p>Test Component</p>;
+        const spy = jest.spyOn(console, 'log').mockImplementation();
+        const WrappedTestComponent = WithLogging(TestComponent);
+        const wrapper = shallow(<WrappedTestComponent />);
+        expect(spy).toHaveBeenCalledTimes(1);
+        wrapper.unmount();
+        expect(spy).toHaveBeenCalledTimes(2);
+        spy.mockRestore();
+    });
 
-        componentDidMount() {
-            console.log(`Component ${this.componentName} is mounted on componentDidMount()`);
-        }
-
-        componentWillUnmount() {
-            console.log(`Component ${this.componentName} is going to unmount on componentWillUnmount()`);
-        }
-
-        render() {
-            return <WrappedComponent {...this.props} />;
-        }
-    }
-
-    WithLoggingComponent.displayName = `WithLogging(${this.componentName})`;
-
-    return WithLoggingComponent;
-};
-
-export default WithLogging;
+    it("should log out the right message on mount and on unmount", () => {
+        const TestComponent = () => <p>Test Component</p>;
+        const spy = jest.spyOn(console, 'log').mockImplementation();
+        const WrappedTestComponent = WithLogging(TestComponent);
+        const wrapper = shallow(<WrappedTestComponent />);
+        expect(spy).toBeCalledTimes(1);
+        expect(spy).toBeCalledWith("Component TestComponent is mounted");
+        wrapper.unmount();
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(spy).toBeCalledWith("Component TestComponent is going to unmount");
+        spy.mockRestore();
+    });
+});
