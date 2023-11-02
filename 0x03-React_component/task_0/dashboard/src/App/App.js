@@ -35,9 +35,7 @@ class App extends React.Component {
                     <div className="App-body">
                         {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
                     </div>
-                    <div className='App-footer'>
-                        <Footer />
-                    </div>
+                    <Footer />
                 </div>
             </React.Fragment>
         );
