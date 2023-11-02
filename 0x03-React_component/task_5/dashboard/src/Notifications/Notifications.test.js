@@ -79,4 +79,33 @@ describe('Notifications Component rendering tests', () => {
         consoleLogSpy.mockRestore();
     });
 
+    it("checks that the component does not render when updated with same list", () => {
+        const initialNotifications = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", value: "Urgent update is available" },
+        ];
+        const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={initialNotifications} />);
+        expect(wrapper.instance().shouldComponentUpdate(initialNotifications)).toBe(false);
+    });
+
+
+    it("checks that the component renders when updated with a longer list", () => {
+        const initialNotifications = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", value: "Urgent update is available" },
+        ];
+
+        const updatedNotifications = [
+            ...initialNotifications,
+            { id: 4, type: 'default', value: 'New update is available' },
+        ];
+
+        const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={initialNotifications} />);
+        expect(wrapper.instance().shouldComponentUpdate(updatedNotifications)).toBe(true);
+    });
+
+
+
 });
