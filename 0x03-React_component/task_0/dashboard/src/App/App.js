@@ -27,10 +27,10 @@ class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="root-notifications">
-                    <Notifications listNotifications={this.listNotifications} />
-                </div>
                 <div className="App">
+                    <div className="root-notifications">
+                        <Notifications listNotifications={this.listNotifications} />
+                    </div>
                     <Header />
                     <div className="App-body">
                         {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
