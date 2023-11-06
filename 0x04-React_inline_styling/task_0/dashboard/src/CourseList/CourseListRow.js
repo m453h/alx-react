@@ -14,15 +14,15 @@ function CourseListRow({isHeader, textFirstCell, textSecondCell }) {
   if (isHeader) {
     if (textSecondCell === null) {
       return (
-          <tr style={headerStyling}>
-            <th colSpan={2}>{textFirstCell}</th>
+          <tr style={rowStyling}>
+            <th style={headerStyling} colSpan={2}>{textFirstCell}</th>
           </tr>
       );
     } else {
       return (
-          <tr style={headerStyling}>
-            <th>{textFirstCell}</th>
-            <th>{textSecondCell}</th>
+          <tr style={rowStyling}>
+            <th style={headerStyling}>{textFirstCell}</th>
+            <th style={headerStyling}>{textSecondCell}</th>
           </tr>
       );
     }
