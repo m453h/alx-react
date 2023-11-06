@@ -6,14 +6,31 @@ import NotificationItemShape from "./NotificationItemShape";
 
 import {css, StyleSheet} from 'aphrodite';
 
-const colorPrimary = '#E11D3F';
+const opacityAnimation = {
+    from: {
+        opacity: 0.5,
+    },
+
+    to: {
+        opacity: 1,
+    },
+};
+
+const translateAnimation = {
+    '0%': {transform: 'translateY(0)'},
+    '50%': {transform: 'translateY(-5px)'},
+    '75%': {transform: 'translateY(5px)'},
+    '100%': {transform: 'translateY(0)'},
+};
+
 const styles = StyleSheet.create({
     Notification: {
         padding: "1em",
-        border: "2px dashed red",
+        border: "2px dashed #000000",
         position: "absolute",
         top: "2.3em",
         right: "0",
+        zIndex: "9999",
         "@media (max-width: 900px)": {
             position: "absolute",
             display: "block",
@@ -26,6 +43,10 @@ const styles = StyleSheet.create({
             fontSize: "20px",
             padding: "0",
         },
+        ':hover': {
+            borderColor: "#9F8289",
+            transition:  "2s"
+        },
     },
 
     "notification-header": {
@@ -36,10 +57,22 @@ const styles = StyleSheet.create({
     MenuItem: {
         textAlign: 'right',
         paddingRight: '2rem',
+        backgroundColor: '#fff8f8',
+        cursor: 'pointer',
         "@media (max-width: 900px)": {
             display: "none",
         },
+        ':hover': {
+            animationName: [opacityAnimation, translateAnimation],
+            animationDuration: '1s, 0.5s',
+            animationIterationCount: 3,
+        },
     },
+    MenuItemHidden: {
+        cursor:'auto',
+        background: "#FFFFFF"
+    },
+
     ulStyling: {
         "@media (max-width: 900px)": {
             padding: "0",
@@ -80,7 +113,9 @@ class Notifications extends React.Component {
         return (
             <React.Fragment>
                 <div className={css(styles.MenuItem)}>
-                    <p>Your notifications</p>
+
+                    {this.props.displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>
+                    }
                 </div>
                 {this.props.displayDrawer && (
                     <div className={css(styles.Notification)}>
