@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function CourseListRow({isHeader, textFirstCell, textSecondCell }) {
-
-  const rowStyling = {
+const rowStyling = {
     backgroundColor: "#f5f5f5ab",
-  };
+};
 
-  const headerStyling = {
+const headerStyling = {
     backgroundColor: "#deb5b545",
-  };
+};
+
+function CourseListRow({isHeader, textFirstCell, textSecondCell }) {
 
   if (isHeader) {
     if (textSecondCell === null) {
