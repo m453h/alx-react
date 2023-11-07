@@ -3,8 +3,17 @@ import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 import {getLatestNotification} from "../utils/utils";
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('Notifications Component rendering tests', () => {
+    beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
+    });
+
+    afterEach(() => {
+        StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+    });
+
     it('renders <Notifications /> without crashing', () => {
         const wrapper = shallow(<Notifications />);
         expect(wrapper).toBeDefined();

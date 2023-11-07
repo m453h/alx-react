@@ -1,8 +1,17 @@
 import React from "react";
 import Header from "./Header";
 import { shallow } from "enzyme";
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe("Header", () => {
+    beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
+    });
+
+    afterEach(() => {
+        StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+    });
+
     it("render <Header /> without crashing", () => {
         const wrapper = shallow(<Header />);
         expect(wrapper.exists()).toEqual(true);

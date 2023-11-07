@@ -2,8 +2,17 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CourseList from './CourseList';
 import CourseListRow from './CourseListRow';
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('CourseList component tests', () => {
+    beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
+    });
+
+    afterEach(() => {
+        StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+    });
+
     it('renders without crashing', () => {
         const wrapper = shallow(<CourseList />);
         expect(wrapper).toBeDefined();
