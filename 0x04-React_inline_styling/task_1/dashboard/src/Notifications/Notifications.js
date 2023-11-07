@@ -8,20 +8,14 @@ import {css, StyleSheet} from 'aphrodite';
 
 const colorPrimary = '#E11D3F';
 const styles = StyleSheet.create({
-    appNotifications: {
+    Notification: {
         border: `1px dashed ${colorPrimary}`,
         position: 'absolute',
         padding: '0.5rem',
         width: '30rem',
         right: '2rem',
     },
-    appDefaultNotification: {
-        color: '#1D0563',
-    },
-    appUrgentNotification: {
-        color: '#F02201',
-    },
-    appMenuItem: {
+    MenuItem: {
         textAlign: 'right',
         paddingRight: '2rem',
     },
@@ -47,11 +41,11 @@ class Notifications extends React.Component {
 
         return (
             <React.Fragment>
-                <div className={css(styles.appMenuItem)}>
+                <div className={css(styles.MenuItem)}>
                     <p>Your notifications</p>
                 </div>
                 {this.props.displayDrawer && (
-                    <div className={css(styles.appNotifications)}>
+                    <div className={css(styles.Notification)}>
                         <button
                             type="button"
                             aria-label="Close"
