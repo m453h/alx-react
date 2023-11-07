@@ -86,7 +86,7 @@ class Notifications extends React.Component {
 }
 
 Notifications.defaultProps = {
-    displayDrawer: false,
+    displayDrawer: true,
     listNotifications: [],
 };
 
