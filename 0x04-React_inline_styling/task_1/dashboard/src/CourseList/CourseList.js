@@ -27,7 +27,9 @@ function CourseList({ listCourses }) {
                     <CourseListRow key={id} textFirstCell={name} textSecondCell={credit} />
                 ))
             ) : (
-                <CourseListRow textFirstCell="No course available yet" />
+                <thead>
+                    <CourseListRow textFirstCell="No course available yet" isHeader={true} />
+                </thead>
             )}
             </tbody>
         </table>

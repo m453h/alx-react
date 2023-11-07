@@ -70,7 +70,7 @@ describe('Notifications Component rendering tests', () => {
 
     it('does not render the "Here is the list of notifications" message when listNotifications is empty', () => {
         const wrapper = shallow(<Notifications listNotifications={[]} />);
-        expect(wrapper.find('p').text()).not.toContain('Here is the list of notifications');
+        expect(wrapper.find('p').last().text()).not.toContain('Here is the list of notifications');
     });
 
     it('checks that when calling the function markAsRead, the spy is being called with the right message', () => {
