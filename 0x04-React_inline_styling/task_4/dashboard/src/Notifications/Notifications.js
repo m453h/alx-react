@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
 });
 
 
+
 class Notifications extends React.Component {
 
     constructor(props) {
