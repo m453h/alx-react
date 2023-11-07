@@ -1,15 +1,9 @@
-:root {
-    --primary-color: #E11D3F;
-}
-
 .Notifications {
-    border: 1px dashed var(--primary-color);
+    border: 1px dashed var(--primar-color);
     position: absolute;
     padding: 0.5rem;
     width:30rem;
     right: 2rem;
-    background:red;
-    height:100px;
 }
 
 [data-notification-type="default"] {
