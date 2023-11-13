@@ -44,6 +44,7 @@ class App extends React.Component {
         this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
         this.handleHideDrawer = this.handleHideDrawer.bind(this);
         this.logIn = this.logIn.bind(this);
+        this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
         this.state = {
             displayDrawer: false,
