@@ -54,17 +54,16 @@ class Login extends React.Component {
     };
 
     render() {
-        const { email, password, enableSubmit } = this.state;
 
         return (
             <React.Fragment>
                 <form onSubmit={this.handleLoginSubmit}>
                     <p>Login to access the full dashboard</p>
                     <label htmlFor='email' className={css(styles.label)}>Email:</label>
-                    <input type='text' name='email' id='email' className={css(styles.appInput)} value={email} onChange={this.handleChangeEmail}/>
+                    <input type='text' name='email' id='email' className={css(styles.appInput)} value={this.state.email} onChange={this.handleChangeEmail}/>
                     <label htmlFor='password' className={css(styles.label)}>Password:</label>
-                    <input type='password' name='password' id='password' className={css(styles.appInput)} value={password} onChange={this.handleChangePassword}/>
-                    <input type='submit' className={css(styles.appInput)} value='OK' disabled={!enableSubmit} />
+                    <input type='password' name='password' id='password' className={css(styles.appInput)} value={this.state.password} onChange={this.handleChangePassword}/>
+                    <input type='submit' className={css(styles.appInput)} value='OK' disabled={!this.state.enableSubmit} />
                 </form>
             </React.Fragment>
         );

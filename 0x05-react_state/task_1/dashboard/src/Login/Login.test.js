@@ -36,7 +36,7 @@ describe('Login', function () {
         expect(submitButton.prop('disabled')).toBe(true);
     });
 
-    it("should submit button enabled after changing the value of the two inputs", () => {
+    it("should have submit button enabled after changing the value of the two inputs", () => {
         const wrapper = shallow(<Login />);
         wrapper.find("#email").simulate("change", { target: { value: "u" } });
         wrapper.find("#password").simulate("change", { target: { value: "1" } });

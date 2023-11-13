@@ -32,8 +32,11 @@ describe('App Component rendering tests', () => {
             { id: 2, type: "urgent", value: "New resume available" },
             { id: 3, type: "urgent", html: {__html: getLatestNotification()}},
         ];
-        const component = shallow(<App />);
-        expect(component.containsMatchingElement(<Notifications listNotifications={listNotifications} />)).toEqual(true);
+
+        const wrapper = shallow(<App />);
+        const notificationsComponent = wrapper.find(Notifications);
+        expect(notificationsComponent).toHaveLength(1);
+        expect(notificationsComponent.props().listNotifications).toEqual(listNotifications);
     });
 
     it("contains Header component", () => {
