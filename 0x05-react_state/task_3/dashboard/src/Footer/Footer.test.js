@@ -47,7 +47,7 @@ describe('Footer', function () {
 
     });
 
-    it('displays the contact uslink when the user is logged in', function () {
+    it('displays the contact us link when the user is logged in', function () {
         const context = {
             user: {
                 email: 'me@me.com',

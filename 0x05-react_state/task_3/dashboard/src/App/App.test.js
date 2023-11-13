@@ -76,6 +76,19 @@ describe('App Component rendering tests', () => {
         expect(wrapper.state().displayDrawer).toEqual(false);
     });
 
+    it('markNotificationAsRead works as intended', function () {
+        const listNotifications = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", html: {__html: getLatestNotification()}},
+        ];
+
+        const wrapper = shallow(<App />);
+        wrapper.setState({listNotifications: listNotifications});
+        wrapper.instance().markNotificationAsRead(1);
+        const newListNotifications = listNotifications.slice(1);
+        expect(wrapper.state('listNotifications')).toEqual(newListNotifications);
+    });
 });
 
 describe('When App isLoggedin is True', function () {

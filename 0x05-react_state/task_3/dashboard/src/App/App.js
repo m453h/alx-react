@@ -54,7 +54,12 @@ class App extends React.Component {
             },
             logOut: () => {
                     this.setState({ user: {email: '', password: '', isLoggedIn: false}});
-            }
+            },
+            listNotifications: [
+                { id: 1, type: "default", value: "New course available" },
+                { id: 2, type: "urgent", value: "New resume available" },
+                { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
+            ]
         };
     }
 
@@ -64,11 +69,7 @@ class App extends React.Component {
         { id: 3, name: "React", credit: 40 },
     ];
 
-    listNotifications = [
-        { id: 1, type: "default", value: "New course available" },
-        { id: 2, type: "urgent", value: "New resume available" },
-        { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
-    ];
+
 
     handleKeyDownPress(event) {
         if (event.ctrlKey && event.key === 'h') {
@@ -99,6 +100,15 @@ class App extends React.Component {
         });
     }
 
+    markNotificationAsRead (id) {
+        this.setState((prevState) => {
+            const updatedNotifications = prevState.listNotifications.filter(
+                (notification) => notification.id !== id
+            );
+            return { listNotifications: updatedNotifications };
+        });
+    };
+
     render() {
         return (
             <AppContext.Provider
@@ -110,10 +120,11 @@ class App extends React.Component {
                 <React.Fragment>
                     <div className="root-notifications">
                         <Notifications
-                            listNotifications={this.listNotifications}
+                            listNotifications={this.state.listNotifications}
                             displayDrawer={this.state.displayDrawer}
                             handleDisplayDrawer={this.handleDisplayDrawer}
                             handleHideDrawer={this.handleHideDrawer}
+                            markNotificationAsRead={this.markNotificationAsRead}
                         />
                     </div>
                     <div className={css(styles.App)}>
