@@ -34,7 +34,7 @@ class Header extends React.Component {
     static contextType = AppContext;
 
     render() {
-        const { user, logout } = this.context;
+        const { user, logOut } = this.context;
 
         return (
             <>
@@ -44,7 +44,7 @@ class Header extends React.Component {
                 </div>
                 {user.isLoggedIn &&
                     <section id='logoutSection'>
-                        <p>Welcome <strong>{user.email}</strong> (<a href='#' className={css(styles.link)} onClick={logout}>Log out</a>)</p>
+                        <p>Welcome <strong>{user.email}</strong> (<a href='#' className={css(styles.link)} onClick={logOut}>Log out</a>)</p>
                     </section>
                 }
             </>
