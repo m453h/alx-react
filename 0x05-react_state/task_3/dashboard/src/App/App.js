@@ -101,6 +101,10 @@ class App extends React.Component {
         });
     }
 
+    logOut() {
+        this.setState({ user: {email: '', password: '', isLoggedIn: false}});
+    }
+
     markNotificationAsRead (id) {
         this.setState((prevState) => {
             const updatedNotifications = prevState.listNotifications.filter(
