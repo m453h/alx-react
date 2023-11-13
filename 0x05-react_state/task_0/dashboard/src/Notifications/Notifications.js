@@ -106,14 +106,17 @@ class Notifications extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.length > this.props.listNotifications.length;
+         if (nextProps.length > this.props.listNotifications.length)
+             return true;
+
+        return nextProps.displayDrawer !== this.props.displayDrawer;
     }
 
     render() {
 
         return (
             <React.Fragment>
-                <div className={css(styles.MenuItem)}>
+                <div className={css(styles.MenuItem)} onClick={this.props.handleDisplayDrawer}>
 
                     {this.props.displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>
                     }
@@ -124,7 +127,7 @@ class Notifications extends React.Component {
                             type="button"
                             aria-label="Close"
                             className={css(styles.closeButton)}
-                            onClick={() => console.log('Close button has been clicked')}
+                            onClick={this.props.handleHideDrawer}
                         >
                             <img src={close_icon} alt="Close icon" style={{ width: '24px', height: '24px' }} />
                         </button>
@@ -155,11 +158,15 @@ class Notifications extends React.Component {
 Notifications.defaultProps = {
     displayDrawer: false,
     listNotifications: [],
+    handleDisplayDrawer: PropTypes.func,
+    handleHideDrawer: PropTypes.func
 };
 
 Notifications.propTypes = {
     displayDrawer: PropTypes.bool,
     listNotifications: PropTypes.arrayOf(NotificationItemShape),
+    handleDisplayDrawer: () => {},
+    handleHideDrawer: () => {}
 };
 
 export default Notifications;
