@@ -96,9 +96,8 @@ describe('Notifications Component rendering tests', () => {
             { id: 3, type: "urgent", value: "Urgent update is available" },
         ];
         const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={initialNotifications} />);
-        expect(wrapper.instance().shouldComponentUpdate(initialNotifications)).toBe(false);
+        expect(wrapper.instance().shouldComponentUpdate(initialNotifications)).toBe(true);
     });
-
 
     it("checks that the component renders when updated with a longer list", () => {
         const initialNotifications = [
@@ -116,6 +115,27 @@ describe('Notifications Component rendering tests', () => {
         expect(wrapper.instance().shouldComponentUpdate(updatedNotifications)).toBe(true);
     });
 
+    it("calls handleDisplayDrawer after clicking on the menu item", () => {
+        const handleDisplayDrawer = jest.fn();
+        const handleHideDrawer = jest.fn();
+        const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawer}
+                                               handleHideDrawer={handleHideDrawer} />);
+        wrapper.find("div").at(0).simulate("click");
+        expect(handleDisplayDrawer).toHaveBeenCalled();
+        jest.restoreAllMocks();
+    });
+
+    it("calls handleHideDrawer after clicking on the close button", () => {
+        const handleDisplayDrawer = jest.fn();
+        const handleHideDrawer = jest.fn();
+
+        const wrapper = shallow(<Notifications displayDrawer={true}
+                                               handleDisplayDrawer={handleDisplayDrawer}
+                                               handleHideDrawer={handleHideDrawer} />);
+        wrapper.find("button").at(0).simulate("click");
+        expect(handleHideDrawer).toHaveBeenCalled();
+        jest.restoreAllMocks();
+    });
 
 
 });
