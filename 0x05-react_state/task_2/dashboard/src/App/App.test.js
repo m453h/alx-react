@@ -11,6 +11,9 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
 import { StyleSheetTestUtils } from 'aphrodite';
+import { AppContext, defaultUser } from "./AppContext";
+
+
 
 describe('App Component rendering tests', () => {
     beforeEach(() => {
@@ -46,7 +49,7 @@ describe('App Component rendering tests', () => {
 
     it("contains Login Component", () => {
         const component = shallow(<App />);
-        expect(component.contains(<Login />)).toBe(true);
+        expect(component.find(Login)).toHaveLength(1);
     });
 
     it("contains Footer component", () => {
@@ -85,16 +88,17 @@ describe('When App isLoggedin is True', function () {
     });
 
     it('does not render Login component', function () {
-        const wrapper = shallow(<App isLoggedIn={true} />);
+        const wrapper = shallow(<App />);
+        wrapper.setState({user: {email: 'me@me.com', password: '123456', isLoggedIn: true}});
         expect(wrapper.find(Login).length).toBe(0);
     });
 
     it('renders the CourseList component', function () {
-        const wrapper = shallow(<App isLoggedIn={true} />);
+        const wrapper = shallow(<App />);
+        wrapper.setState({user: {email: 'me@me.com', password: '123456', isLoggedIn: true}});
         expect(wrapper.find(CourseList).length).toBe(1);
     });
 });
-
 
 describe('When Ctrl + h is pressed', () => {
     let logOutMock;
@@ -112,14 +116,6 @@ describe('When Ctrl + h is pressed', () => {
         StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
     });
 
-    it('checks that logOut function is called', () => {
-        const wrapper = mount(<App logOut={logOutMock} />);
-        const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
-        document.dispatchEvent(event);
-        expect(logOutMock).toHaveBeenCalledTimes(1);
-        wrapper.unmount();
-    });
-
     it('checks that the alert method is called', () => {
         const wrapper = mount(<App />);
         const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
@@ -135,4 +131,24 @@ describe('When Ctrl + h is pressed', () => {
         expect(alertSpy).toHaveBeenCalledWith('Logging you out');
         wrapper.unmount();
     });
+
 });
+describe('state updating checks', () => {
+
+    it('updates state variables correctly when logIn function is called', () => {
+        const wrapper = shallow(<App />);
+        wrapper.instance().logIn("me@me.com", '123456');
+        expect(wrapper.state().user).toEqual({email: 'me@me.com', password: '123456', isLoggedIn: true});
+    });
+
+    it('updates state variables correctly when logOut function is called', () => {
+        const wrapper = shallow(<App />);
+        wrapper.instance().logIn("me@me.com", "123456");
+        expect(wrapper.state().user).toEqual({email: 'me@me.com', password: '123456', isLoggedIn: true});
+        wrapper.instance().state.logOut();
+        expect(wrapper.state().user).toEqual({email: '', password: '', isLoggedIn: false});
+    });
+
+});
+jest.useFakeTimers();
+jest.runAllTimers();
