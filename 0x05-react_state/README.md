@@ -18,4 +18,3 @@ This project introduces the concept of React state, it mainly covers the followi
 - Allowed editors: `vi`, `vim`, `emacs`, `Visual Studio Code`
 - All files should end with a new line
 - A `README.md` file, at the root of the folder of the project, is mandatory
-- 
