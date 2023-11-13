@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../assets/Holberton-logo.jpg";
 import {css, StyleSheet} from "aphrodite";
+import {AppContext} from "../App/AppContext";
 
 const colorPrimary = '#d93654';
 
@@ -23,15 +24,32 @@ const styles = StyleSheet.create({
     appHeaderImg: {
         height: '180px',
     },
+    link : {
+        color: colorPrimary,
+        fontStyle: 'italic',
+    }
 });
 
-function Header() {
-    return (
-            <div className={css(styles.appHeader)}>
-                <img src={logo} className={css(styles.appHeaderImg)} alt="logo" />
-                <h1 className={css(styles.appHeaderH1)}>School dashboard</h1>
-            </div>
-    );
+class Header extends React.Component {
+    static contextType = AppContext;
+
+    render() {
+        const { user, logout } = this.context;
+
+        return (
+            <>
+                <div className={css(styles.appHeader)}>
+                    <img src={logo} className={css(styles.appHeaderImg)} alt="logo"/>
+                    <h1 className={css(styles.appHeaderH1)}>School dashboard</h1>
+                </div>
+                {user.isLoggedIn &&
+                    <section id='logoutSection'>
+                        <p>Welcome <strong>{user.email}</strong> (<a href='#' className={css(styles.link)} onClick={logout}>Log out</a>)</p>
+                    </section>
+                }
+            </>
+        );
+    }
 }
 
 export default Header;
