@@ -1,5 +1,5 @@
-import React, {  useEffect, useState } from 'react';
-import {css, StyleSheet} from "aphrodite";
+import React from 'react';
+import { css, StyleSheet } from 'aphrodite';
 
 const styles = StyleSheet.create({
     appInput: {
@@ -7,54 +7,68 @@ const styles = StyleSheet.create({
         marginLeft: '5px',
         marginBottom: '5px',
         marginTop: '5px',
-        "@media (max-width: 900px)": {
-            display: "block",
+        '@media (max-width: 900px)': {
+            display: 'block',
         },
     },
     label: {
-        "@media (max-width: 900px)": {
-            display: "inline-block",
-            padding: "0",
-            marginLeft: "5px",
+        '@media (max-width: 900px)': {
+            display: 'inline-block',
+            padding: '0',
+            marginLeft: '5px',
         },
     },
 });
 
-function Login() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [enableSubmit, setEnableSubmit] = useState(false);
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: false,
+            email: '',
+            password: '',
+            enableSubmit: false,
+        };
 
-    const handleLoginSubmit = (event) => {
-        event.preventDefault();
-        setIsLoggedIn(true);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
+    }
+
+    handleLoginSubmit = (e) => {
+        e.preventDefault();
+        this.setState({ isLoggedIn: true });
     };
 
-    const handleChangeEmail = (e) => {
-        setEmail(e.target.value);
+    handleChangeEmail = (e) => {
+        this.setState({ email: e.target.value }, this.checkEnableSubmit);
     };
 
-    const handleChangePassword = (e) => {
-        setPassword(e.target.value);
+    handleChangePassword = (e) => {
+        this.setState({ password: e.target.value }, this.checkEnableSubmit);
     };
 
-    useEffect(() => {
-        setEnableSubmit(email.trim() !== '' && password.trim() !== '');
-    }, [email, password]);
+    checkEnableSubmit = () => {
+        const { email, password } = this.state;
+        this.setState({ enableSubmit: email.trim() !== '' && password.trim() !== '' });
+    };
 
-    return (
-        <React.Fragment>
-            <form onSubmit={handleLoginSubmit}>
-                <p>Login to access the full dashboard</p>
-                <label htmlFor='email' className={css(styles.label)}>Email:</label>
-                <input type='text' name='email' id='email' className={css(styles.appInput)} value={email} onChange={handleChangeEmail}></input>
-                <label htmlFor='password' className={css(styles.label)}>Password:</label>
-                <input type='password' name='password' id='password' className={css(styles.appInput)} value={password} onChange={handleChangePassword}></input>
-                <input type={"submit"} className={css(styles.appInput)} value={"OK"} disabled={!enableSubmit} />
-            </form>
-        </React.Fragment>
-    );
+    render() {
+        const { email, password, enableSubmit } = this.state;
+
+        return (
+            <React.Fragment>
+                <form onSubmit={this.handleLoginSubmit}>
+                    <p>Login to access the full dashboard</p>
+                    <label htmlFor='email' className={css(styles.label)}>Email:</label>
+                    <input type='text' name='email' id='email' className={css(styles.appInput)} value={email} onChange={this.handleChangeEmail}/>
+                    <label htmlFor='password' className={css(styles.label)}>Password:</label>
+                    <input type='password' name='password' id='password' className={css(styles.appInput)} value={password} onChange={this.handleChangePassword}/>
+                    <input type='submit' className={css(styles.appInput)} value='OK' disabled={!enableSubmit} />
+                </form>
+            </React.Fragment>
+        );
+    }
 }
 
 export default Login;
