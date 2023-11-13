@@ -9,6 +9,9 @@ import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from "aphrodite";
+import {AppContext} from './AppContext';
+
+
 
 const colorPrimary = '#d93654';
 
@@ -41,7 +44,19 @@ class App extends React.Component {
         this.handleKeyDownPress = this.handleKeyDownPress.bind(this);
         this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
         this.handleHideDrawer = this.handleHideDrawer.bind(this);
-        this.state = { displayDrawer: false};
+        this.logIn = this.logIn.bind(this);
+
+        this.state = {
+            displayDrawer: false,
+            user: {
+                email: '',
+                password: '',
+                isLoggedIn: false,
+            },
+            logOut: () => {
+                    this.setState({ user: {email: '', password: '', isLoggedIn: false}});
+            }
+        };
     }
 
     listCourses = [
@@ -79,53 +94,56 @@ class App extends React.Component {
         document.removeEventListener('keydown', this.handleKeyDownPress);
     }
 
-    render() {
-        return (
-            <React.Fragment>
-                <div className="root-notifications">
-                    <Notifications
-                        listNotifications={this.listNotifications}
-                        displayDrawer={this.state.displayDrawer}
-                        handleDisplayDrawer={this.handleDisplayDrawer}
-                        handleHideDrawer={this.handleHideDrawer}
-                    />
-                </div>
-                <div className={css(styles.App)}>
-                    <Header />
-                    <div className="App-body">
-                        {this.props.isLoggedIn ?
-                            <BodySectionWithMarginBottom title={"Course list"}>
-                                <CourseList listCourses={this.listCourses} />
-                            </BodySectionWithMarginBottom> :
-                            <BodySectionWithMarginBottom title={"Log in to continue"}>
-                                <Login />
-                            </BodySectionWithMarginBottom>
-                        }
-                        <BodySection title="News from the school">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ex nec sem pulvinar maximus. Maecenas faucibus eleifend vestibulum. Nulla nunc lorem, sollicitudin condimentum massa nec, volutpat porta elit. Curabitur maximus lectus pharetra massa faucibus varius. Aliquam molestie, mauris vel facilisis tincidunt, neque tortor auctor diam, nec aliquam magna sem quis nunc. Pellentesque feugiat magna in elit posuere, vitae pulvinar nulla auctor. Donec tortor ligula, tempor ac auctor vel, consequat eget arcu. Vivamus congue ligula quis tellus bibendum congue. Praesent ut velit varius, fermentum mi convallis, eleifend arcu. Suspendisse feugiat purus eget lectus gravida, sit amet mollis tortor hendrerit. Donec fermentum tellus mauris, at rhoncus neque vehicula eleifend. Phasellus iaculis non enim sed dictum.
-
-                                Praesent efficitur vestibulum est, vitae blandit diam hendrerit id. Donec sed vestibulum mauris. Mauris metus est, ultrices id tempus lobortis, molestie quis quam. Cras consequat nibh sed pulvinar varius. Nam interdum id velit hendrerit maximus. Donec maximus ligula eu nunc volutpat aliquam. Curabitur bibendum, lectus eget suscipit cursus, velit magna varius massa, sit amet ullamcorper risus ligula vel nulla. Donec tristique, ex eleifend molestie efficitur, eros nulla tincidunt neque, quis convallis nulla metus sit amet ex. Duis arcu sem, malesuada non rutrum sed, dignissim in nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam interdum nisl a ipsum mattis malesuada vel vitae velit.
-                            </p>
-                        </BodySection>
-                    </div>
-                    <div className={css(styles.appFooter)}>
-                        <Footer />
-                    </div>
-                </div>
-            </React.Fragment>
-        );
+    logIn(email, password) {
+        this.setState({
+            user: { email, password, isLoggedIn: true,},
+        });
     }
 
-    static defaultProps = {
-        isLoggedIn: false,
-        logOut: () => { },
-    };
+    render() {
+        return (
+            <AppContext.Provider
+                value={{
+                    user: this.state.user,
+                    logout: this.state.logOut,
+                }}
+            >
+                <React.Fragment>
+                    <div className="root-notifications">
+                        <Notifications
+                            listNotifications={this.listNotifications}
+                            displayDrawer={this.state.displayDrawer}
+                            handleDisplayDrawer={this.handleDisplayDrawer}
+                            handleHideDrawer={this.handleHideDrawer}
+                        />
+                    </div>
+                    <div className={css(styles.App)}>
+                        <Header />
+                        <div className="App-body">
+                            {this.state.user.isLoggedIn ?
+                                <BodySectionWithMarginBottom title={"Course list"}>
+                                    <CourseList listCourses={this.listCourses} />
+                                </BodySectionWithMarginBottom> :
+                                <BodySectionWithMarginBottom title={"Log in to continue"}>
+                                    <Login logIn={this.logIn} />
+                                </BodySectionWithMarginBottom>
+                            }
+                            <BodySection title="News from the school">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ex nec sem pulvinar maximus. Maecenas faucibus eleifend vestibulum. Nulla nunc lorem, sollicitudin condimentum massa nec, volutpat porta elit. Curabitur maximus lectus pharetra massa faucibus varius. Aliquam molestie, mauris vel facilisis tincidunt, neque tortor auctor diam, nec aliquam magna sem quis nunc. Pellentesque feugiat magna in elit posuere, vitae pulvinar nulla auctor. Donec tortor ligula, tempor ac auctor vel, consequat eget arcu. Vivamus congue ligula quis tellus bibendum congue. Praesent ut velit varius, fermentum mi convallis, eleifend arcu. Suspendisse feugiat purus eget lectus gravida, sit amet mollis tortor hendrerit. Donec fermentum tellus mauris, at rhoncus neque vehicula eleifend. Phasellus iaculis non enim sed dictum.
 
-    static propTypes = {
-        isLoggedIn: PropTypes.bool,
-        logOut: PropTypes.func,
-    };
+                                    Praesent efficitur vestibulum est, vitae blandit diam hendrerit id. Donec sed vestibulum mauris. Mauris metus est, ultrices id tempus lobortis, molestie quis quam. Cras consequat nibh sed pulvinar varius. Nam interdum id velit hendrerit maximus. Donec maximus ligula eu nunc volutpat aliquam. Curabitur bibendum, lectus eget suscipit cursus, velit magna varius massa, sit amet ullamcorper risus ligula vel nulla. Donec tristique, ex eleifend molestie efficitur, eros nulla tincidunt neque, quis convallis nulla metus sit amet ex. Duis arcu sem, malesuada non rutrum sed, dignissim in nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam interdum nisl a ipsum mattis malesuada vel vitae velit.
+                                </p>
+                            </BodySection>
+                        </div>
+                        <div className={css(styles.appFooter)}>
+                            <Footer />
+                        </div>
+                    </div>
+                </React.Fragment>
+            </AppContext.Provider>
+        );
+    }
 }
 
 export default App;

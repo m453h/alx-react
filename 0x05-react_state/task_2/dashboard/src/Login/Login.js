@@ -1,5 +1,6 @@
 import React from 'react';
 import { css, StyleSheet } from 'aphrodite';
+import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({
     appInput: {
@@ -37,7 +38,7 @@ class Login extends React.Component {
 
     handleLoginSubmit = (e) => {
         e.preventDefault();
-        this.setState({ isLoggedIn: true });
+        this.props.logIn(this.state.email, this.state.password);
     };
 
     handleChangeEmail = (e) => {
@@ -54,7 +55,6 @@ class Login extends React.Component {
     };
 
     render() {
-
         return (
             <React.Fragment>
                 <form onSubmit={this.handleLoginSubmit}>
@@ -68,6 +68,13 @@ class Login extends React.Component {
             </React.Fragment>
         );
     }
+
+    static defaultProps = {
+    };
+
+    static propTypes = {
+        logIn: PropTypes.func,
+    };
 }
 
 export default Login;
