@@ -12,7 +12,7 @@ import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
 import { StyleSheetTestUtils } from 'aphrodite';
 import { AppContext, defaultUser } from "./AppContext";
-
+import {act} from "react-dom/test-utils";
 
 
 describe('App Component rendering tests', () => {
@@ -130,22 +130,26 @@ describe('When Ctrl + h is pressed', () => {
     });
 
     it('checks that the alert method is called', () => {
-        const wrapper = mount(<App />);
-        const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
-        document.dispatchEvent(event);
-        expect(alertSpy).toHaveBeenCalled();
-        wrapper.unmount();
+
+        act(() => {
+            const  wrapper = mount(<App />);
+            const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+            document.dispatchEvent(event);
+            expect(alertSpy).toHaveBeenCalled();
+        });
     });
 
     it('checks that the message on the called alert function is "Logging you out"', () => {
-        const wrapper = mount(<App />);
-        const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
-        document.dispatchEvent(event);
-        expect(alertSpy).toHaveBeenCalledWith('Logging you out');
-        wrapper.unmount();
+        act(() => {
+            const wrapper = mount(<App />);
+            const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+            document.dispatchEvent(event);
+            expect(alertSpy).toHaveBeenCalledWith('Logging you out');
+        });
     });
 
 });
+
 describe('state updating checks', () => {
 
     it('updates state variables correctly when logIn function is called', () => {

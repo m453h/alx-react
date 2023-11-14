@@ -28,6 +28,6 @@ describe('CourseListRow component tests', () => {
         const wrapper = shallow(
             <CourseListRow isHeader={false} textFirstCell="First Cell" textSecondCell="Second Cell" />
         );
-        expect(wrapper.html()).toBe('<tr class="row_y7r86x"><td>First Cell</td><td>Second Cell</td></tr>');
+        expect(wrapper.html()).toBe('<tr class="row_y7r86x"><td><input type="checkbox"/>First Cell</td><td>Second Cell</td></tr>');
     });
 });
