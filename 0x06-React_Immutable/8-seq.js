@@ -2,20 +2,20 @@ import { Seq, fromJS } from 'immutable';
 
 export default function printBestStudents(object) {
   const studentsSeq = Seq(fromJS(object));
+
   const bestStudents = studentsSeq
-    .filter(function(student) {
+    .filter((student) => {
       return student.get('score') >= 70;
     })
-    .map(function(student) {
+    .map((student) => {
       return student
-        .update('firstName', function(firstName) {
+        .update('firstName', (firstName) => {
           return firstName.charAt(0).toUpperCase() + firstName.slice(1);
         })
-        .update('lastName', function(lastName) {
+        .update('lastName', (lastName) => {
           return lastName.charAt(0).toUpperCase() + lastName.slice(1);
         });
-    })
-    .toJS();
+    }).toJS();
 
   console.log(bestStudents);
 }
