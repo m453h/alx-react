@@ -80,19 +80,14 @@ class App extends React.Component {
     }
 
     render() {
-        const displayDrawer = this.state.displayDrawer;
-        const listNotifications = this.listNotifications;
-        const handleDisplayDrawer = this.handleDisplayDrawer;
-        const handleHideDrawer = this.handleHideDrawer;
-
         return (
             <React.Fragment>
                 <div className="root-notifications">
                     <Notifications
-                        listNotifications={listNotifications}
-                        displayDrawer={displayDrawer}
-                        handleDisplayDrawer={handleDisplayDrawer}
-                        handleHideDrawer={handleHideDrawer}
+                        listNotifications={this.listNotifications}
+                        displayDrawer={this.state.displayDrawer}
+                        handleDisplayDrawer={this.handleDisplayDrawer}
+                        handleHideDrawer={this.handleHideDrawer}
                     />
                 </div>
                 <div className={css(styles.App)}>
