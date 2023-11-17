@@ -113,13 +113,12 @@ class Notifications extends React.Component {
     }
 
     render() {
+        const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
 
         return (
             <React.Fragment>
-                <div className={css(styles.MenuItem)} onClick={this.props.handleDisplayDrawer}>
-
-                    {this.props.displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>
-                    }
+                <div className={css(styles.MenuItem)} onClick={handleDisplayDrawer}>
+                    {displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>}
                 </div>
                 {this.props.displayDrawer && (
                     <div className={css(styles.Notification)}>
@@ -127,13 +126,13 @@ class Notifications extends React.Component {
                             type="button"
                             aria-label="Close"
                             className={css(styles.closeButton)}
-                            onClick={this.props.handleHideDrawer}
+                            onClick={handleHideDrawer}
                         >
                             <img src={close_icon} alt="Close icon" style={{ width: '24px', height: '24px' }} />
                         </button>
                         <p>Here is the list of notifications</p>
                         <ul className={css(styles.ulStyling)}>
-                            {this.props.listNotifications && this.props.listNotifications.length > 0 ? (
+                            {listNotifications && listNotifications.length > 0 ? (
                                 this.props.listNotifications.map((notification, index) => (
                                     <NotificationItem
                                         key={index}
