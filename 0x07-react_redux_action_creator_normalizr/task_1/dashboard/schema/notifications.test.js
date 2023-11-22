@@ -25,7 +25,7 @@ describe("getAllNotificationsByUser tests", () => {
     });
 
     it("should have correct result array", () => {
-        const results = [
+        const expectedResults = [
             "5debd76480edafc8af244228",
             "5debd764507712e7a1307303",
             "5debd76444dd4dafea89d53b",
@@ -41,38 +41,38 @@ describe("getAllNotificationsByUser tests", () => {
             "5debd76468cb5b277fd125f4",
             "5debd764de9fa684468cdc0b",
         ];
-        expect(normalizedNotifications.result).toEqual(results);
+        expect(normalizedNotifications.result).toEqual(expectedResults);
     });
 
     it("should have correct users entity", () => {
-        const user = {
+        const expectedUser = {
             age: 25,
             email: "poole.sanders@holberton.nz",
             id: "5debd764a7c57c7839d722e9",
             name: { first: "Poole", last: "Sanders" },
             picture: "http://placehold.it/32x32",
         };
-        expect(normalizedNotifications.entities.users["5debd764a7c57c7839d722e9"]).toEqual(user);
+        expect(normalizedNotifications.entities.users["5debd764a7c57c7839d722e9"]).toEqual(expectedUser);
     });
 
     it("should have a correct messages entity", () => {
-        const message = {
+        const expectedMessage = {
             guid: "efb6c485-00f7-4fdf-97cc-5e12d14d6c41",
             isRead: false,
             type: "default",
             value: "Cursus risus at ultrices mi.",
         };
-        expect(normalizedNotifications.entities.messages["efb6c485-00f7-4fdf-97cc-5e12d14d6c41"]).toEqual(message);
+        expect(normalizedNotifications.entities.messages["efb6c485-00f7-4fdf-97cc-5e12d14d6c41"]).toEqual(expectedMessage);
     });
 
     it("should have a correct notifications entity", () => {
-        const notificationEntity = {
+        const expectedNotification = {
             author: "5debd764f8452ef92346c772",
             context: "3068c575-d619-40af-bf12-dece1ee18dd3",
             id: "5debd7642e815cd350407777"
         };
 
-        expect(normalizedNotifications.entities.notifications["5debd7642e815cd350407777"]).toEqual(notificationEntity);
+        expect(normalizedNotifications.entities.notifications["5debd7642e815cd350407777"]).toEqual(expectedNotification);
     });
 
 });
