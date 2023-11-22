@@ -16,7 +16,6 @@ export default function getAllNotificationsByUser(userId) {
     const notifications = normalizedNotifications.entities.notifications;
     const messages = normalizedNotifications.entities.messages;
 
-    console.log(JSON.stringify(normalizedNotifications, null, 4));
     for (const id in notifications) {
         const notification = notifications[id];
         if (notification.author === userId) {
