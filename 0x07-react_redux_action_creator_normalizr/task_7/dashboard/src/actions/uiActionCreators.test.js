@@ -68,7 +68,7 @@ describe('loginRequest', () => {
     it('should receive LOGIN and LOGIN_FAILURE actions when API query fails', async () => {
         const expectedActions = [
             {
-                type: LOGIN, user: { email: 'me@me.com', password: '123456' }
+                type: LOGIN, user: { email: 'me@me.com', password: 'abcdefg' }
             },
             {
                 type: LOGIN_FAILURE
