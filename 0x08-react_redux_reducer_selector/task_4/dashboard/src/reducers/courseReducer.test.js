@@ -40,8 +40,6 @@ describe("courseReducer test", function () {
         ];
 
         const initialState = Map(fromJS(testData).map(item => [item.get('id'), item]));
-        console.log(initialState.toJS());
-
         const action = { type: SELECT_COURSE, index: 2 };
         const newState = courseReducer(initialState, action);
 
