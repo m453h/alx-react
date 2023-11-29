@@ -25,4 +25,8 @@ export default function getAllNotificationsByUser(userId) {
     return userNotifications;
 }
 
+export function notificationsNormalizer(data) {
+    return normalize(data, [notification]);
+}
+
 export { normalizedNotifications };
