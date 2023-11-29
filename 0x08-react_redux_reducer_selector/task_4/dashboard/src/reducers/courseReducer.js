@@ -2,7 +2,7 @@ import {
     FETCH_COURSE_SUCCESS,
     SELECT_COURSE,
     UNSELECT_COURSE } from '../actions/courseActionTypes';
-import { coursesNormalizer } from '../../schema/courses';
+import { coursesNormalizer } from '../schema/courses';
 import {Map, setIn} from 'immutable';
 
 

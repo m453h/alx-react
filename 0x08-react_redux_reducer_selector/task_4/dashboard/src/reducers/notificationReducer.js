@@ -4,7 +4,7 @@ import {
     SET_TYPE_FILTER
 } from '../actions/notificationActionTypes';
 import {Map, setIn} from 'immutable';
-import {notificationsNormalizer} from "../../schema/notifications";
+import {notificationsNormalizer} from "../schema/notifications";
 
 
 const initialState = [];
