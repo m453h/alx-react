@@ -2,14 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App/App';
 import reportWebVitals from "./reportWebVitals";
-import uiReducer from "./reducers/uiReducer";
+import uiReducer, {initialState} from "./reducers/uiReducer";
 import {applyMiddleware, compose, createStore} from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { Map } from 'immutable';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(uiReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+    uiReducer,
+    Map(initialState),
+    (applyMiddleware(thunk))
+);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
