@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
 
 
-class Notifications extends React.PureComponent {
+export class Notifications extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -149,18 +149,18 @@ class Notifications extends React.PureComponent {
     }
 }
 
-Notifications.defaultProps = {
-    displayDrawer: false,
-    listNotifications: null,
+Notifications.propTypes = {
+    displayDrawer: PropTypes.bool,
+    listNotifications: PropTypes.array,
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
     markNotificationAsRead: PropTypes.func,
     fetchNotifications: PropTypes.func,
 };
 
-Notifications.propTypes = {
-    displayDrawer: PropTypes.bool,
-    listNotifications: PropTypes.array,
+Notifications.defaultProps = {
+    displayDrawer: false,
+    listNotifications: [],
     handleDisplayDrawer: () => {},
     handleHideDrawer: () => {},
     markNotificationAsRead: () => {},
