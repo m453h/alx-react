@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import NotificationItemShape from "./NotificationItemShape";
 
 import {css, StyleSheet} from 'aphrodite';
+import {fetchNotifications} from "../actions/notificationActionCreators";
 
 const opacityAnimation = {
     from: {
@@ -100,6 +101,10 @@ class Notifications extends React.PureComponent {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.fetchNotifications();
+    }
+
     render() {
 
         return (
@@ -158,5 +163,16 @@ Notifications.propTypes = {
     handleHideDrawer: () => {},
     markNotificationAsRead: () => {}
 };
+
+const mapStateToProps = (state) => {
+    return {
+        listNotifications: state.notifications.get('messages'),
+    };
+};
+
+const mapDispatchToProps = {
+    fetchNotifications,
+};
+
 
 export default Notifications;
