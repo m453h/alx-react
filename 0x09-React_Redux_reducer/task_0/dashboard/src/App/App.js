@@ -127,7 +127,7 @@ class App extends React.Component {
                     <div className="root-notifications">
                         <Notifications
                             listNotifications={this.state.listNotifications}
-                            displayDrawer={this.displayDrawer}
+                            displayDrawer={this.state.displayDrawer}
                             handleDisplayDrawer={this.handleDisplayDrawer}
                             handleHideDrawer={this.handleHideDrawer}
                             markNotificationAsRead={this.markNotificationAsRead}
