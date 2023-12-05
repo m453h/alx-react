@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class App extends React.Component {
+export class App extends React.Component {
 
     static propTypes = {
         displayDrawer: PropTypes.bool,
@@ -187,5 +187,4 @@ export const mapDispatchToProps = {
     hideNotificationDrawer,
 };
 
-export const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(App);
-export { connectedApp as App };
+export default connect(mapStateToProps, mapDispatchToProps)(App);
