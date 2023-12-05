@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { shallow, mount } from "enzyme";
-import App from "./App";
+import { App, mapStateToProps } from "./App";
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
@@ -13,6 +13,7 @@ import {getLatestNotification} from "../utils/utils";
 import { StyleSheetTestUtils } from 'aphrodite';
 import { AppContext, defaultUser } from "./AppContext";
 import {act} from "react-dom/test-utils";
+import {fromJS} from "immutable";
 
 
 describe('App Component rendering tests', () => {
@@ -167,5 +168,19 @@ describe('state updating checks', () => {
     });
 
 });
+
+describe('mapStateToProps tests', () => {
+    it('should return the correct object when passing the state', () => {
+        const state = fromJS({
+            isUserLoggedIn: true,
+        });
+
+        const result = mapStateToProps(state);
+        expect(result).toEqual({ isLoggedIn: true });
+    });
+
+});
+
+
 jest.useFakeTimers();
 jest.runAllTimers();
