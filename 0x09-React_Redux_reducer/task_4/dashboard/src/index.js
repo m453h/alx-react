@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App/App';
 import reportWebVitals from "./reportWebVitals";
 import uiReducer from "./reducers/uiReducer";
-import {applyMiddleware, createStore, compose} from "redux";
+import {applyMiddleware, compose, createStore} from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
