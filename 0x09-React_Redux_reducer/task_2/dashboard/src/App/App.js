@@ -125,9 +125,9 @@ export default class App extends React.Component {
             displayNotificationDrawer,
             hideNotificationDrawer,
             login,
-            logout
+            logout,
+            isLoggedIn
         } = this.props;
-
         return (
             <AppContext.Provider
                 value={{
@@ -148,7 +148,7 @@ export default class App extends React.Component {
                     <div className={css(styles.App)}>
                         <Header />
                         <div className="App-body">
-                            {this.state.user.isLoggedIn ?
+                            {isLoggedIn ?
                                 <BodySectionWithMarginBottom title={"Course list"}>
                                     <CourseList listCourses={this.listCourses} />
                                 </BodySectionWithMarginBottom> :
