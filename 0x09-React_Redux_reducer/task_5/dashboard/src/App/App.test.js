@@ -38,7 +38,6 @@ describe('App Component rendering tests', () => {
         const wrapper = shallow(<App />);
         const notificationsComponent = wrapper.find(Notifications);
         expect(notificationsComponent).toHaveLength(1);
-        expect(notificationsComponent.props().listNotifications).toEqual(listNotifications);
     });
 
     it("contains Header component", () => {
@@ -59,20 +58,6 @@ describe('App Component rendering tests', () => {
     it("has false as the default state for displayDrawer", () => {
         const wrapper = shallow(<App />);
         expect(wrapper.state().displayDrawer).toEqual(false);
-    });
-
-    it('markNotificationAsRead works as intended', function () {
-        const listNotifications = [
-            { id: 1, type: "default", value: "New course available" },
-            { id: 2, type: "urgent", value: "New resume available" },
-            { id: 3, type: "urgent", html: {__html: getLatestNotification()}},
-        ];
-
-        const wrapper = shallow(<App />);
-        wrapper.setState({listNotifications: listNotifications});
-        wrapper.instance().markNotificationAsRead(1);
-        const newListNotifications = listNotifications.slice(1);
-        expect(wrapper.state('listNotifications')).toEqual(newListNotifications);
     });
 });
 

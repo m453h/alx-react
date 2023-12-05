@@ -11,7 +11,7 @@ describe('rootReducer', () => {
         };
         expect(initialState.ui).toBeInstanceOf(Map);
         expect(initialState.courses).toBeInstanceOf(Map);
-        expect(initialState.notifications).toBeInstanceOf(Array);
+        expect(initialState.notifications).toBeInstanceOf(Map);
 
     });
 });

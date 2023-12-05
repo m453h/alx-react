@@ -3,7 +3,7 @@ import {
     MARK_AS_READ, NotificationTypeFilters, SET_LOADING_STATE,
     SET_TYPE_FILTER
 } from '../actions/notificationActionTypes';
-import {Map, setIn} from 'immutable';
+import {Map, setIn, Seq} from 'immutable';
 import {notificationsNormalizer} from "../schema/notifications";
 
 

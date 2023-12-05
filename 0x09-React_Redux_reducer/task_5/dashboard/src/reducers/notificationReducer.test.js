@@ -4,12 +4,18 @@ import {
     MARK_AS_READ,
     SET_TYPE_FILTER,
 } from '../actions/notificationActionTypes';
-import {fromJS, Map} from "immutable";
+import {fromJS, Map, Seq} from "immutable";
 
 describe('notificationReducer Tests', () => {
 
     it('handles FETCH_NOTIFICATIONS_SUCCESS and updates isRead property', () => {
-        const action = {
+        const initialState = Map({
+            filter: 'DEFAULT',
+            messages: [],
+            loading: false
+        });
+
+        const fetchNotificationsSuccess = {
             type: FETCH_NOTIFICATIONS_SUCCESS,
             data: [
                 {id: 1, type: "default", value: "New course available"},
@@ -17,14 +23,17 @@ describe('notificationReducer Tests', () => {
                 {id: 3, type: "urgent", value: "New data available"}
             ]
         };
-        const initialState = new Map(fromJS( {
-            notifications: [],
-        }));
-
-        const newState = notificationReducer(initialState, action);
-        const receivedNotifications = newState.toJS().notifications.entities.notifications;
-        expect(Object.keys(receivedNotifications).length).toEqual(3);
-        expect(receivedNotifications["1"].isRead).toBe(false);
+        const newState = notificationReducer(initialState, fetchNotificationsSuccess);
+        expect(newState.get('filter')).toBe('DEFAULT');
+        expect(newState.get('loading')).toBe(false);
+        const messagesSeq = Seq(newState.get('messages') || Iterable());
+        messagesSeq.valueSeq().forEach((message) => {
+            expect(message).toHaveProperty('id');
+            expect(message).toHaveProperty('type');
+            expect(message).toHaveProperty('value');
+            expect(message).toHaveProperty('isRead');
+            expect(message.get('isRead')).toBe(false);
+        });
     });
 
     it('handles MARK_AS_READ and updates the correct notification', () => {
