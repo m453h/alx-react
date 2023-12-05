@@ -60,7 +60,6 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
         this.handleKeyDownPress = this.handleKeyDownPress.bind(this);
-        this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
         this.state = {
             displayDrawer: false,
@@ -72,11 +71,6 @@ export class App extends React.Component {
             logOut: () => {
                     this.setState({ user: {email: '', password: '', isLoggedIn: false}});
             },
-            listNotifications: [
-                { id: 1, type: "default", value: "New course available" },
-                { id: 2, type: "urgent", value: "New resume available" },
-                { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
-            ]
         };
     }
 
@@ -109,15 +103,6 @@ export class App extends React.Component {
         this.setState({ user: {email: '', password: '', isLoggedIn: false}});
     }
 
-    markNotificationAsRead (id) {
-        this.setState((prevState) => {
-            const updatedNotifications = prevState.listNotifications.filter(
-                (notification) => notification.id !== id
-            );
-            return { listNotifications: updatedNotifications };
-        });
-    };
-
     render() {
 
         const {
@@ -138,11 +123,10 @@ export class App extends React.Component {
                 <React.Fragment>
                     <div className="root-notifications">
                         <Notifications
-                            listNotifications={this.state.listNotifications}
+                            listNotifications={this.props.listNotifications}
                             displayDrawer={displayDrawer}
                             handleDisplayDrawer={displayNotificationDrawer}
                             handleHideDrawer={hideNotificationDrawer}
-                            markNotificationAsRead={this.markNotificationAsRead}
                         />
                     </div>
                     <div className={css(styles.App)}>
