@@ -10,7 +10,7 @@ import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from "aphrodite";
 import {AppContext} from './AppContext';
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActionCreators";
+import {displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout} from "../actions/uiActionCreators";
 import PropTypes from "prop-types";
 
 
@@ -45,20 +45,21 @@ export default class App extends React.Component {
         displayDrawer: PropTypes.bool,
         handleDisplayDrawer: PropTypes.func,
         handleHideDrawer: PropTypes.func,
-        isLoggedIn: PropTypes.bool
+        isLoggedIn: PropTypes.bool,
+        login: PropTypes.func,
     }
 
     static defaultProps = {
         displayDrawer: false,
         handleDisplayDrawer: () => {},
         handleHideDrawer: () => {},
-        isLoggedIn: false
+        isLoggedIn: false,
+        login: () => {},
     }
 
     constructor(props) {
         super(props);
         this.handleKeyDownPress = this.handleKeyDownPress.bind(this);
-        this.logIn = this.logIn.bind(this);
         this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
         this.state = {
@@ -90,7 +91,7 @@ export default class App extends React.Component {
     handleKeyDownPress(event) {
         if (event.ctrlKey && event.key === 'h') {
             alert("Logging you out");
-            this.state.logOut();
+            this.props.logout();
         }
     }
 
@@ -102,11 +103,7 @@ export default class App extends React.Component {
         document.removeEventListener('keydown', this.handleKeyDownPress);
     }
 
-    logIn(email, password) {
-        this.setState({
-            user: { email, password, isLoggedIn: true,},
-        });
-    }
+
 
     logOut() {
         this.setState({ user: {email: '', password: '', isLoggedIn: false}});
@@ -127,6 +124,8 @@ export default class App extends React.Component {
             displayDrawer,
             displayNotificationDrawer,
             hideNotificationDrawer,
+            login,
+            logout
         } = this.props;
 
         return (
@@ -154,7 +153,7 @@ export default class App extends React.Component {
                                     <CourseList listCourses={this.listCourses} />
                                 </BodySectionWithMarginBottom> :
                                 <BodySectionWithMarginBottom title={"Log in to continue"}>
-                                    <Login logIn={this.logIn} />
+                                    <Login logIn={login} />
                                 </BodySectionWithMarginBottom>
                             }
                             <BodySection title="News from the school">
@@ -185,6 +184,8 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = {
     displayNotificationDrawer,
     hideNotificationDrawer,
+    login: loginRequest,
+    logout,
 };
 
 export const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(App);

@@ -71,7 +71,6 @@ export function loginFailure() {
 export function loginRequest(email, password) {
     return function (dispatch) {
         dispatch(login(email, password));
-
         return fetch('http://localhost:8564/login-success.json')
                 .then(response => {
                     if (response.ok) {
