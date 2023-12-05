@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class App extends React.Component {
+export class App extends React.Component {
 
     constructor(props) {
         super(props);
@@ -168,5 +168,4 @@ export const mapStateToProps = (state) => {
     }
 }
 
-connect(mapStateToProps)(App);
-export default App;
+export default connect(mapStateToProps)(App);
