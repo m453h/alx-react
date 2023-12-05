@@ -7,6 +7,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { Map } from 'immutable';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
