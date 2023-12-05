@@ -7,7 +7,7 @@ import {
     LOGOUT,
 } from '../actions/uiActionTypes';
 
-const initialState = Map({
+export const initialState = Map({
     isNotificationDrawerVisible: false,
     isUserLoggedIn: false,
     user: Map({}),

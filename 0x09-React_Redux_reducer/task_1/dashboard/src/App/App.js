@@ -39,18 +39,20 @@ const styles = StyleSheet.create({
     },
 });
 
-class App extends React.Component {
+export default class App extends React.Component {
 
     static propTypes = {
         displayDrawer: PropTypes.bool,
         handleDisplayDrawer: PropTypes.func,
-        handleHideDrawer: PropTypes.func
+        handleHideDrawer: PropTypes.func,
+        isLoggedIn: PropTypes.bool
     }
 
     static defaultProps = {
         displayDrawer: false,
         handleDisplayDrawer: () => {},
-        handleHideDrawer: () => {}
+        handleHideDrawer: () => {},
+        isLoggedIn: false
     }
 
     constructor(props) {
@@ -185,4 +187,5 @@ export const mapDispatchToProps = {
     hideNotificationDrawer,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(App);
+export { connectedApp as App };

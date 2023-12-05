@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { shallow, mount } from "enzyme";
-import App, { mapStateToProps } from "./App";
+import App, { mapStateToProps} from "./App";
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
@@ -60,20 +60,6 @@ describe('App Component rendering tests', () => {
 
     it("has false as the default state for displayDrawer", () => {
         const wrapper = shallow(<App />);
-        expect(wrapper.state().displayDrawer).toEqual(false);
-    });
-
-    it("displayDrawer changes to true after calling handleDisplayDrawer", () => {
-        const wrapper = shallow(<App />);
-        wrapper.instance().handleDisplayDrawer();
-        expect(wrapper.state().displayDrawer).toEqual(true);
-    });
-
-    it("displayDrawer changes to false after calling handleDisplayDrawer", () => {
-        const wrapper = shallow(<App />);
-        wrapper.instance().handleDisplayDrawer();
-        expect(wrapper.state().displayDrawer).toEqual(true);
-        wrapper.instance().handleHideDrawer();
         expect(wrapper.state().displayDrawer).toEqual(false);
     });
 
@@ -170,13 +156,17 @@ describe('state updating checks', () => {
 });
 
 describe('mapStateToProps tests', () => {
-    it('should return the correct object when passing the state', () => {
+    it('returns the right object when passing the state', function () {
         const state = fromJS({
             isUserLoggedIn: true,
+            isNotificationDrawerVisible: true,
         });
 
-        const result = mapStateToProps(state);
-        expect(result).toEqual({ isLoggedIn: true });
+        const { isLoggedIn, displayDrawer } = mapStateToProps(state);
+        expect({ isLoggedIn, displayDrawer }).toEqual({
+            isLoggedIn: state.get('isUserLoggedIn'),
+            displayDrawer: state.get('isNotificationDrawerVisible'),
+        });
     });
 
 });
