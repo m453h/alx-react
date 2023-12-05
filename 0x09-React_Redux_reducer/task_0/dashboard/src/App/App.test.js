@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { shallow, mount } from "enzyme";
-import { App, mapStateToProps } from "./App";
+import App, { mapStateToProps} from "./App";
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
