@@ -38,10 +38,10 @@ export function setLoadingState(loading) {
     };
 }
 
-export function setNotifications(notifications) {
+export function setNotifications(data) {
     return {
         type: FETCH_NOTIFICATIONS_SUCCESS,
-        notifications,
+        data,
     };
 }
 
@@ -49,11 +49,11 @@ export function fetchNotifications() {
     return function(dispatch) {
         dispatch(setLoadingState(true));
         return fetch('http://localhost:8564/notifications.json')
-            .then(function(res) {
-                return res.json();
+            .then(function(results) {
+                return results.json();
             })
-            .then(function(data) {
-                dispatch(setNotifications(data));
+            .then(function(notifications) {
+                dispatch(setNotifications(notifications));
             })
             .catch(function(error) {
             })

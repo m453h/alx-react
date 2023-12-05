@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 
 import {css, StyleSheet} from 'aphrodite';
-import {fetchNotifications} from "../actions/notificationActionCreators";
+import { fetchNotifications } from "../actions/notificationActionCreators";
+import {connect} from "react-redux";
 
 const opacityAnimation = {
     from: {
@@ -31,6 +32,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: "2.3em",
         right: "0",
+        background: "#FFFFFF",
         zIndex: "9999",
         "@media (max-width: 900px)": {
             position: "absolute",
@@ -106,7 +108,6 @@ class Notifications extends React.PureComponent {
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <div className={css(styles.MenuItem)} onClick={this.props.handleDisplayDrawer}>
@@ -150,18 +151,20 @@ class Notifications extends React.PureComponent {
 
 Notifications.defaultProps = {
     displayDrawer: false,
-    listNotifications: [],
+    listNotifications: null,
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
-    markNotificationAsRead: PropTypes.func
+    markNotificationAsRead: PropTypes.func,
+    fetchNotifications: PropTypes.func,
 };
 
 Notifications.propTypes = {
     displayDrawer: PropTypes.bool,
-    listNotifications: PropTypes.arrayOf(NotificationItemShape),
+    listNotifications: PropTypes.array,
     handleDisplayDrawer: () => {},
     handleHideDrawer: () => {},
-    markNotificationAsRead: () => {}
+    markNotificationAsRead: () => {},
+    fetchNotifications: () => {}
 };
 
 const mapStateToProps = (state) => {
@@ -173,6 +176,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     fetchNotifications,
 };
-
-
-export default Notifications;
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
