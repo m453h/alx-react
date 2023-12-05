@@ -127,7 +127,7 @@ class App extends React.Component {
                     <div className="root-notifications">
                         <Notifications
                             listNotifications={this.state.listNotifications}
-                            displayDrawer={this.state.displayDrawer}
+                            displayDrawer={this.displayDrawer}
                             handleDisplayDrawer={this.handleDisplayDrawer}
                             handleHideDrawer={this.handleHideDrawer}
                             markNotificationAsRead={this.markNotificationAsRead}
@@ -163,7 +163,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { isLoggedIn: state.get("isUserLoggedIn") }
+    return {
+        isLoggedIn: state.get("isUserLoggedIn"),
+        displayDrawer: state.get("isNotificationDrawerVisible"),
+    }
 }
 
 const ConnectedApp = connect(mapStateToProps)(App);
