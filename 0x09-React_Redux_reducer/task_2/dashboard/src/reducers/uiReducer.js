@@ -4,13 +4,13 @@ import {
     HIDE_NOTIFICATION_DRAWER,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT,
+    LOGOUT, LOGIN,
 } from '../actions/uiActionTypes';
 
 export const initialState = Map({
     isNotificationDrawerVisible: false,
     isUserLoggedIn: false,
-    user: Map({}),
+    user: null,
 });
 
 export default function uiReducer(state = initialState, action) {
@@ -21,9 +21,11 @@ export default function uiReducer(state = initialState, action) {
             return state.set('isNotificationDrawerVisible', false);
         case LOGIN_SUCCESS:
              return state.set('isUserLoggedIn', true);
+        case LOGIN:
+            return state.set("user", action.user);
         case LOGIN_FAILURE:
         case LOGOUT:
-            return state.set('isUserLoggedIn', false);
+            return state.set('isUserLoggedIn', false).set("user", null);
         default:
             return state;
     }
