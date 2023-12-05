@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App/App';
 import reportWebVitals from "./reportWebVitals";
-import uiReducer, {initialState} from "./reducers/uiReducer";
+import uiReducer from "./reducers/uiReducer";
 import {applyMiddleware, compose, createStore} from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
@@ -10,11 +10,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-    uiReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(thunk))
-);
+const store = createStore(uiReducer, composeEnhancers(applyMiddleware(thunk)));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
