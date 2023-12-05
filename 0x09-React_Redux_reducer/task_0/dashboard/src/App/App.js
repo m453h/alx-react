@@ -165,7 +165,6 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.get("isUserLoggedIn"),
-        displayDrawer: state.get("isNotificationDrawerVisible"),
     }
 }
 
