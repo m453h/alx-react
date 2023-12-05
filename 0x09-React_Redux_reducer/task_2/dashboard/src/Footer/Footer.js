@@ -3,7 +3,7 @@ import { getFullYear, getFooterCopy } from "../utils/utils";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-function Footer({ user }) {
+export function Footer({ user }) {
     return (
         <div className="footer">
             <p>

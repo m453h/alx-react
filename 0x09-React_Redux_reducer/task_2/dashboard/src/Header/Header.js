@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     }
 });
 
-class Header extends React.Component {
+export class Header extends React.Component {
     static contextType = AppContext;
 
     constructor(props) {
@@ -42,7 +42,6 @@ class Header extends React.Component {
 
     render() {
         const { user, logout } = this.props;
-        console.log(this.props);
         return (
             <>
                 <div className={css(styles.appHeader)}>

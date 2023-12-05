@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { connectedApp as App } from './App/App';
+import App from './App/App';
 import reportWebVitals from "./reportWebVitals";
 import uiReducer from "./reducers/uiReducer";
 import { createStore, applyMiddleware } from "redux";

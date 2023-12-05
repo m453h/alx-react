@@ -3,10 +3,9 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import Footer from './Footer';
+import { shallow } from 'enzyme';
+import { Footer } from './Footer';
 import { AppContext } from "../App/AppContext";
-
 
 describe('Footer', function () {
     it('Footer component renders without crashing', function () {
@@ -15,19 +14,9 @@ describe('Footer', function () {
     });
 
     it('renders text "Copyright', function () {
-        const context = {
-            user: {
-                email: '',
-                password: '',
-                isLoggedIn: false
-            }
-        };
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Footer />
-            </AppContext.Provider>
-        );
-        expect(wrapper.text()).toContain('Copyright');
+        const wrapper = shallow(<Footer />);
+        expect(wrapper.find('div.footer p')).toHaveLength(1);
+        expect(wrapper.find('div.footer p').text()).toContain('Copyright');
     });
 
     it('does not displayed contact us link when the user is logged out', function () {
@@ -38,7 +27,7 @@ describe('Footer', function () {
                 isLoggedIn: false
             }
         };
-        const wrapper = mount(
+        const wrapper = shallow(
             <AppContext.Provider value={context}>
                 <Footer />
             </AppContext.Provider>
@@ -48,18 +37,8 @@ describe('Footer', function () {
     });
 
     it('displays the contact us link when the user is logged in', function () {
-        const context = {
-            user: {
-                email: 'me@me.com',
-                password: '123456',
-                isLoggedIn: true
-            }
-        };
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Footer />
-            </AppContext.Provider>
-        );
-        expect(wrapper.find('a').exists()).toEqual(true);
+        const wrapper = shallow(<Footer user={{ email: 'test', password: 'test' }}/>);
+        const contactLink = wrapper.find('a');
+        expect(contactLink).toHaveLength(1);
     });
 });

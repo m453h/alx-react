@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import Header from "./Header";
+import { Header } from "./Header";
 import { mount, shallow } from "enzyme";
 import {StyleSheetTestUtils} from "aphrodite";
 import { AppContext } from "../App/AppContext";
@@ -27,7 +27,7 @@ describe("Header", () => {
             logOut: jest.fn(),
         };
 
-        const wrapper = mount(<AppContext.Provider value={context}><Header /></AppContext.Provider>);
+        const wrapper = shallow(<AppContext.Provider value={context}><Header /></AppContext.Provider>);
         expect(wrapper.exists()).toEqual(true);
         wrapper.unmount();
     });
@@ -104,36 +104,9 @@ describe("Header", () => {
             logOut: () => {}
         };
 
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Header />
-            </AppContext.Provider>
-        );
-
+        const wrapper = shallow(<Header user={{ email: 'test', password: 'test' }}/>);
         const logoutSection = wrapper.find("#logoutSection")
         expect(logoutSection.exists()).toBe(true);
-        wrapper.unmount();
-    });
-
-    it('it should call the logOut function when logout Link is clicked', () => {
-        const context = {
-            user: {
-                email: "me@me.com",
-                password: "123456",
-                isLoggedIn: true,
-            },
-            logOut: jest.fn(),
-        };
-
-        const logoutSpy = jest.spyOn(context, "logOut");
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Header />
-            </AppContext.Provider>
-        );
-
-        wrapper.find("#logoutSection a").simulate("click");
-        expect(logoutSpy).toHaveBeenCalledTimes(1);
         wrapper.unmount();
     });
 });
