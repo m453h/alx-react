@@ -26,5 +26,17 @@ describe('uiReducer Tests', function () {
         const returnedState = uiReducer(initialState, displayNotificationDrawer());
         expect(returnedState.get('isNotificationDrawerVisible')).toEqual(true);
     });
+
+    it('updates the user property for LOGIN action', () => {
+        const action = { type: 'LOGIN', user: { email: 'test', password: 'test' } };
+        const returnedState = uiReducer(initialState, action);
+        expect(returnedState.get('user')).toEqual({ email: 'test', password: 'test' });
+    });
+
+    it('updates the user property to null for LOGOUT action', () => {
+        const action = { type: 'LOGOUT', user: null };
+        const returnedState = uiReducer(initialState, action);
+        expect(returnedState.get('user')).toEqual(null);
+    });
 });
 

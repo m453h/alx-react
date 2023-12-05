@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { App, mapStateToProps} from "./App";
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
@@ -11,8 +11,6 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
 import { StyleSheetTestUtils } from 'aphrodite';
-import { AppContext, defaultUser } from "./AppContext";
-import {act} from "react-dom/test-utils";
 import {fromJS} from "immutable";
 
 
@@ -100,15 +98,15 @@ describe('When App isLoggedin is True', function () {
 
 describe('mapStateToProps tests', () => {
     it('returns the right object when passing the state', function () {
-        const state = fromJS({
-            isUserLoggedIn: true,
-            isNotificationDrawerVisible: true,
-        });
-
+        const state = {
+            ui: fromJS({
+                isUserLoggedIn: true,
+            }),
+        };
         const { isLoggedIn, displayDrawer } = mapStateToProps(state);
         expect({ isLoggedIn, displayDrawer }).toEqual({
-            isLoggedIn: state.get('isUserLoggedIn'),
-            displayDrawer: state.get('isNotificationDrawerVisible'),
+            isLoggedIn: state.ui.get('isUserLoggedIn'),
+            displayDrawer: state.ui.get('isNotificationDrawerVisible'),
         });
     });
 
