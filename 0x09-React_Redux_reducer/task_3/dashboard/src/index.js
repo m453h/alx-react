@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css';
 import ReactDOM from 'react-dom';
 import { ConnectedApp as App } from './App/App';
 import reportWebVitals from './reportWebVitals';
