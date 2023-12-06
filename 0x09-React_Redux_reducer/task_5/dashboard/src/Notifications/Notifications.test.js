@@ -15,8 +15,6 @@ describe('Notifications Component rendering tests', () => {
         StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
     });
 
-
-
     it('renders text "Here is the list of notifications"', () => {
         const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
         const text = wrapper.find('p').last().text();
@@ -132,6 +130,15 @@ describe('Notifications Component rendering tests', () => {
         />);
         wrapper.find("button").at(0).simulate("click");
         expect(handleHideDrawer).toHaveBeenCalled();
+        jest.restoreAllMocks();
+    });
+
+    it('calls fetchNotifications when component is mounted', () => {
+        const fetchNotifications = jest.fn();
+        shallow(
+            <Notifications fetchNotifications={fetchNotifications} />
+        );
+        expect(fetchNotifications).toHaveBeenCalled();
         jest.restoreAllMocks();
     });
 
