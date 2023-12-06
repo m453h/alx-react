@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
-import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from "aphrodite";

@@ -168,14 +168,21 @@ Notifications.defaultProps = {
     fetchNotifications: () => {}
 };
 
-const mapStateToProps = (state) => {
+export function mapStateToProps(state) {
     return {
         listNotifications: getUnreadNotifications(state),
     };
-};
+}
 
-const mapDispatchToProps = {
-    fetchNotifications,
-    markNotificationAsRead: markAsRead,
-};
+export function mapDispatchToProps(dispatch) {
+    return {
+        fetchNotifications: function () {
+            dispatch(fetchNotifications());
+        },
+        markNotificationAsRead: function (index) {
+            dispatch(markAsRead(index));
+        }
+    };
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

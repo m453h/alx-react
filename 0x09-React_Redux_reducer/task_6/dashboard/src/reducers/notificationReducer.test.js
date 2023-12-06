@@ -5,6 +5,7 @@ import {
     SET_TYPE_FILTER,
 } from '../actions/notificationActionTypes';
 import {fromJS, Map, Seq} from "immutable";
+import {markAsRead} from "../actions/notificationActionCreators";
 
 describe('notificationReducer Tests', () => {
 
@@ -37,30 +38,22 @@ describe('notificationReducer Tests', () => {
     });
 
     it('handles MARK_AS_READ and updates the correct notification', () => {
-        const initialState = new Map(fromJS({
-            filter: 'DEFAULT',
-            notifications: [
-                {id: 1, type: "default", value: "New course available", isRead: false},
-                {id: 2, type: "urgent", value: "New resume available", isRead: false},
-                {id: 3, type: "urgent", value: "New data available", isRead: false}
-            ],
-        }));
-
-        const action = {
-            type: MARK_AS_READ,
-            index: 1,
-        };
-
-        const newState = notificationReducer(initialState, action);
-        const expectedState = {
-            filter: 'DEFAULT',
-            notifications: [
-                {id: 1, isRead: false, type: 'default', value: 'New course available',},
-                {id: 2, isRead: true, type: 'urgent', value: 'New resume available',},
-                {id: 3, isRead: false, type: 'urgent', value: 'New data available',},
+        const initialState = {
+            messages: [
+                { guid: '1', isRead: false, id: 1, type: 'default', value: 'New course available' },
+                { guid: '2', isRead: false, id: 1, type: 'default', value: 'New course available' },
+                { guid: '3', isRead: false, id: 1, type: 'default', value: 'New course available' },
             ],
         };
-        expect(newState.toJS()).toEqual(expectedState);
+        const action = markAsRead('1');
+        const newState = notificationReducer(Map(initialState), action);
+        expect(newState.toJS()).toEqual({
+            messages: [
+                { guid: '1', isRead: true, id: 1, type: 'default', value: 'New course available' },
+                { guid: '2', isRead: false, id: 1, type: 'default', value: 'New course available' },
+                { guid: '3', isRead: false, id: 1, type: 'default', value: 'New course available' },
+            ],
+        });
     });
 
     it('handles SET_TYPE_FILTER and updates the filter property', () => {

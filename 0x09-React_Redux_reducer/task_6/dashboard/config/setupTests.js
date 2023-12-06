@@ -3,7 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import { configure } from "enzyme";
-import Adapter from '@cfaester/enzyme-adapter-react-18';
+import Adapter from 'enzyme-adapter-react-16';
 import util from 'util';
 
 Object.defineProperty(global, 'TextEncoder', {
