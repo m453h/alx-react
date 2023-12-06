@@ -61,7 +61,7 @@ describe("notificationActionCreators tests", () => {
 });
 
 
-describe('loginRequest', () => {
+describe('fetchNotifications', () => {
     let store;
     beforeEach(() => {
         fetchMock.resetMocks();
@@ -99,6 +99,5 @@ describe('loginRequest', () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
-
 
 });

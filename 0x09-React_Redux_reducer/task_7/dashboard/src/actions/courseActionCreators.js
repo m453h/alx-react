@@ -1,4 +1,4 @@
-import { SELECT_COURSE, UNSELECT_COURSE } from './courseActionTypes';
+import {FETCH_COURSE_SUCCESS, SELECT_COURSE, UNSELECT_COURSE} from './courseActionTypes';
 
 export function selectCourse(index) {
     return {
@@ -23,5 +23,26 @@ export function boundSelectCourse(index) {
 export function boundUnSelectCourse(index) {
     return function(dispatch) {
         dispatch(unSelectCourse(index));
+    };
+}
+
+export function setCourses(data) {
+    return {
+        type: FETCH_COURSE_SUCCESS,
+        data,
+    };
+}
+
+export function fetchCourses() {
+    return function (dispatch) {
+        return fetch("http://localhost:8564/courses.json")
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (data) {
+                dispatch(setCourses(data));
+            })
+            .catch(function (error) {
+            });
     };
 }
