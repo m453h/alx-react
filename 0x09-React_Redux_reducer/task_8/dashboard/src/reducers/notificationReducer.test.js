@@ -57,10 +57,10 @@ describe('notificationReducer Tests', () => {
     });
 
     it('handles SET_TYPE_FILTER and updates the filter property', () => {
-        const initialState = {
+        const initialState = Map({
             notifications: [],
-            filter: 'all',
-        };
+            filter: 'DEFAULT',
+        });
 
         const action = {
             type: SET_TYPE_FILTER,

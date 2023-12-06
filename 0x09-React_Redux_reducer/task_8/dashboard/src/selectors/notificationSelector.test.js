@@ -1,12 +1,9 @@
 import {Map, List, fromJS} from 'immutable';
 import {
     filterTypeSelected,
-    getNotifications,
     getUnreadNotificationsByType,
 } from './notificationSelector';
-import {MARK_AS_READ} from "../actions/notificationActionTypes";
 import notificationReducer from "../reducers/notificationReducer";
-import {notificationsNormalizer} from "../schema/notifications";
 import {markAsRead} from "../actions/notificationActionCreators";
 
 
