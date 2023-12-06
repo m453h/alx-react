@@ -16,12 +16,8 @@ const styles = StyleSheet.create({
     }
 });
 
-function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
-    const [isChecked, setIsChecked] = useState(false);
-
-    const markCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    };
+function CourseListRow(props) {
+    const { isHeader, textFirstCell, textSecondCell, onChangeRow, isChecked } = props;
 
     if (isHeader) {
         if (textSecondCell === null) {
@@ -46,8 +42,7 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
                 <td>
                     <input
                         type="checkbox"
-                        checked={isChecked}
-                        onChange={markCheckboxChange}
+                        onChange={() => onChangeRow(props.id, !props.isChecked)}
                     />
                     {textFirstCell}
                 </td>
