@@ -5,9 +5,6 @@ import PropTypes from 'prop-types';
 
 
 import {css, StyleSheet} from 'aphrodite';
-import {fetchNotifications, markAsRead, setNotificationFilter} from "../actions/notificationActionCreators";
-import { connect } from "react-redux";
-import {getUnreadNotificationsByType} from "../selectors/notificationSelector";
 
 const opacityAnimation = {
     from: {
@@ -98,62 +95,59 @@ const styles = StyleSheet.create({
 
 
 
-export class Notifications extends React.PureComponent {
+function Notifications(props) {
+    const {
+        displayDrawer,
+        listNotifications,
+        handleDisplayDrawer,
+        handleHideDrawer,
+        setNotificationFilter,
+        markNotificationAsRead } = props;
 
-    constructor(props) {
-        super(props);
-    }
+    return (
+        <React.Fragment>
+            <div className={css(styles.MenuItem)} onClick={handleDisplayDrawer}>
 
-    componentDidMount() {
-        this.props.fetchNotifications();
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <div className={css(styles.MenuItem)} onClick={this.props.handleDisplayDrawer}>
-
-                    {this.props.displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>
-                    }
+                {displayDrawer ? <p className={css(styles.MenuItemHidden)}>&nbsp;</p> :  <p>Your notifications</p>
+                }
+            </div>
+            {displayDrawer && (
+                <div className={css(styles.Notification)}>
+                    <button
+                        type="button"
+                        aria-label="Close"
+                        className={css(styles.closeButton)}
+                        onClick={handleHideDrawer}
+                    >
+                        <img src={close_icon} alt="Close icon" style={{ width: '24px', height: '24px' }} />
+                    </button>
+                    <p>Here is the list of notifications</p>
+                    <button onClick={() => {setNotificationFilter('URGENT');}} className='urgent' title={'Urgent'}>
+                        ‼️
+                    </button>
+                    <button onClick={() => {setNotificationFilter('DEFAULT');}} className='default' title={'Default'}>
+                        💠
+                    </button>
+                    <ul className={css(styles.ulStyling)}>
+                        {listNotifications && listNotifications.length > 0 ? (
+                            listNotifications.map((notification, index) => (
+                                <NotificationItem
+                                    key={index}
+                                    type={notification.type}
+                                    value={notification.value}
+                                    html={notification.html}
+                                    id={notification.id}
+                                    markAsRead={() => markNotificationAsRead(notification.guid)}
+                                />
+                            ))
+                        ) : (
+                            <li>No new notification for now</li>
+                        )}
+                    </ul>
                 </div>
-                {this.props.displayDrawer && (
-                    <div className={css(styles.Notification)}>
-                        <button
-                            type="button"
-                            aria-label="Close"
-                            className={css(styles.closeButton)}
-                            onClick={this.props.handleHideDrawer}
-                        >
-                            <img src={close_icon} alt="Close icon" style={{ width: '24px', height: '24px' }} />
-                        </button>
-                        <p>Here is the list of notifications</p>
-                        <button onClick={() => {this.props.setNotificationFilter('URGENT');}} className='urgent' title={'Urgent'}>
-                            ‼️
-                        </button>
-                        <button onClick={() => {this.props.setNotificationFilter('DEFAULT');}} className='default' title={'Default'}>
-                            💠
-                        </button>
-                        <ul className={css(styles.ulStyling)}>
-                            {this.props.listNotifications && this.props.listNotifications.length > 0 ? (
-                                this.props.listNotifications.map((notification, index) => (
-                                    <NotificationItem
-                                        key={index}
-                                        type={notification.type}
-                                        value={notification.value}
-                                        html={notification.html}
-                                        id={notification.id}
-                                        markAsRead={() => this.props.markNotificationAsRead(notification.guid)}
-                                    />
-                                ))
-                            ) : (
-                                <li>No new notification for now</li>
-                            )}
-                        </ul>
-                    </div>
-                )}
-            </React.Fragment>
-        );
-    }
+            )}
+        </React.Fragment>
+    );
 }
 
 Notifications.propTypes = {
@@ -176,24 +170,4 @@ Notifications.defaultProps = {
     setNotificationFilter: () => {},
 };
 
-export function mapStateToProps(state) {
-    return {
-        listNotifications: getUnreadNotificationsByType(state),
-    };
-}
-
-export function mapDispatchToProps(dispatch) {
-    return {
-        fetchNotifications: function () {
-            dispatch(fetchNotifications());
-        },
-        markNotificationAsRead: function (index) {
-            dispatch(markAsRead(index));
-        },
-        setNotificationFilter: function (index) {
-            dispatch(setNotificationFilter(index));
-        }
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default Notifications;

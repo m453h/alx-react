@@ -12,6 +12,7 @@ import CourseList from "../CourseList/CourseList";
 import {getLatestNotification} from "../utils/utils";
 import { StyleSheetTestUtils } from 'aphrodite';
 import {fromJS} from "immutable";
+import NotificationsContainer from "../Notifications/NotificationsContainer";
 
 
 describe('App Component rendering tests', () => {
@@ -36,7 +37,7 @@ describe('App Component rendering tests', () => {
         ];
 
         const wrapper = shallow(<App />);
-        const notificationsComponent = wrapper.find(Notifications);
+        const notificationsComponent = wrapper.find(NotificationsContainer);
         expect(notificationsComponent).toHaveLength(1);
     });
 

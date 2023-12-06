@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Notifications }from './Notifications';
+import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 import {getLatestNotification} from "../utils/utils";
 import {StyleSheetTestUtils} from "aphrodite";
@@ -132,15 +132,5 @@ describe('Notifications Component rendering tests', () => {
         expect(handleHideDrawer).toHaveBeenCalled();
         jest.restoreAllMocks();
     });
-
-    it('calls fetchNotifications when component is mounted', () => {
-        const fetchNotifications = jest.fn();
-        shallow(
-            <Notifications fetchNotifications={fetchNotifications} />
-        );
-        expect(fetchNotifications).toHaveBeenCalled();
-        jest.restoreAllMocks();
-    });
-
 });
 

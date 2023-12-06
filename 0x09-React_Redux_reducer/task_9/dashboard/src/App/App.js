@@ -11,8 +11,7 @@ import {AppContext} from './AppContext';
 import { connect } from 'react-redux';
 import {displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout} from "../actions/uiActionCreators";
 import PropTypes from "prop-types";
-
-
+import NotificationsContainer from "../Notifications/NotificationsContainer";
 
 const colorPrimary = '#d93654';
 
@@ -121,7 +120,7 @@ export class App extends React.Component {
             >
                 <React.Fragment>
                     <div className="root-notifications">
-                        <Notifications
+                        <NotificationsContainer
                             listNotifications={this.props.listNotifications}
                             displayDrawer={displayDrawer}
                             handleDisplayDrawer={displayNotificationDrawer}
