@@ -2,29 +2,28 @@ import {Map, List, fromJS} from 'immutable';
 import {
     filterTypeSelected,
     getNotifications,
-    getUnreadNotifications,
+    getUnreadNotificationsByType,
 } from './notificationSelector';
 import {MARK_AS_READ} from "../actions/notificationActionTypes";
 import notificationReducer from "../reducers/notificationReducer";
 import {notificationsNormalizer} from "../schema/notifications";
 import {markAsRead} from "../actions/notificationActionCreators";
 
-const initialState = new Map(fromJS({
-    filter: 'DEFAULT',
-    notifications: [
+
+
+const initialState = Map({
+    filter: "DEFAULT",
+    messages: [
         {id: 1, type: "default", value: "New course available", isRead: false},
         {id: 2, type: "urgent", value: "New resume available", isRead: false},
         {id: 3, type: "urgent", value: "New data available", isRead: false}
-    ],
-}));
+    ]
+});
 
 describe('selectors test suite', () => {
-
-
     it('works as expected', function() {
-        const action = {};
-        const newState = notificationReducer(undefined, action);
-        expect(filterTypeSelected(newState)).toBe('DEFAULT');
+        const result = filterTypeSelected({notifications: initialState});
+        expect(result).toBe('DEFAULT');
     });
 });
 
@@ -47,23 +46,32 @@ describe('getNotifications test suite', function() {
     });
 });
 
-describe('getUnreadNotifications test suite', function() {
-    it("returns a correct list of the message entities within the reducer", function() {
-        const state = {
-            notifications: Map({
-                messages: List([
-                    { id: 1, type: 'default', value: 'New course available', isRead: false },
-                    { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
-                    { id: 3, type: 'urgent', value: 'New data available', isRead: true },
-                ]),
-            }),
-        };
-        const result = getUnreadNotifications(state);
+describe('getUnreadNotificationsByType', function() {
+    it('returns unread urgent notifications when the filter is URGENT', function() {
+        const initialState = Map({
+            filter: "URGENT",
+            messages: [
+                {id: 1, type: "default", value: "New course available", isRead: false},
+                {id: 2, type: "urgent", value: "New resume available", isRead: false},
+                {id: 3, type: "urgent", value: "New data available", isRead: false}
+            ]
+        });
 
-        console.log(result);
-        expect(result).toEqual([
-            { id: 1, type: 'default', value: 'New course available', isRead: false },
-            { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
-        ]);
+        const expectedNotifications = [
+            {id: 2, type: "urgent", value: "New resume available", isRead: false},
+            {id: 3, type: "urgent", value: "New data available", isRead: false}
+        ];
+
+        const notifications = getUnreadNotificationsByType({notifications: initialState});
+        expect(notifications).toStrictEqual(expectedNotifications);
+    });
+
+    describe('getUnreadNotificationsByType', () => {
+        it('returns all unread notifications when the filter is DEFAULT', () => {
+            const expectedNotifications = initialState.get('messages');
+            const notifications = getUnreadNotificationsByType({notifications: initialState});
+            expect(notifications).toStrictEqual(expectedNotifications);
+        });
     });
 });
+
