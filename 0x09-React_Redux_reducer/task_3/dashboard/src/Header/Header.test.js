@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Header } from "./Header";
-import { mount, shallow } from "enzyme";
+import { shallow } from "enzyme";
 import {StyleSheetTestUtils} from "aphrodite";
 import { AppContext } from "../App/AppContext";
 
@@ -27,9 +27,8 @@ describe("Header", () => {
             logOut: jest.fn(),
         };
 
-        const wrapper = shallow(<AppContext.Provider value={context}><Header /></AppContext.Provider>);
+        const wrapper = shallow(<Header />);
         expect(wrapper.exists()).toEqual(true);
-        wrapper.unmount();
     });
 
     it("should render a <h1 />", () => {
@@ -42,14 +41,9 @@ describe("Header", () => {
             logOut: () => {}
         };
 
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Header />
-            </AppContext.Provider>
-                );
+        const wrapper = shallow(<Header />);
         const h1 = wrapper.find('h1');
         expect(h1.exists()).toBe(true);
-        wrapper.unmount();
     });
 
     it("should render a <img />", () => {
@@ -62,15 +56,10 @@ describe("Header", () => {
            logOut: () => {}
     };
 
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Header />
-            </AppContext.Provider>
-        );
+        const wrapper = shallow(<Header />);
 
         const img = wrapper.find('img');
         expect(img.exists()).toBe(true);
-        wrapper.unmount();
     });
 
     it('should not render logoutSection with default context values', () => {
@@ -83,15 +72,11 @@ describe("Header", () => {
             logOut: () => {}
         };
 
-        const wrapper = mount(
-            <AppContext.Provider value={context}>
-                <Header />
-            </AppContext.Provider>
-        );
+        const wrapper = shallow(<Header />);
+
 
         const logoutSection = wrapper.find("#logoutSection")
         expect(logoutSection.exists()).toBe(false);
-        wrapper.unmount();
     });
 
     it('should render logoutSection with a user defined and isLoggedIn context values', () => {
@@ -107,6 +92,5 @@ describe("Header", () => {
         const wrapper = shallow(<Header user={{ email: 'test', password: 'test' }}/>);
         const logoutSection = wrapper.find("#logoutSection")
         expect(logoutSection.exists()).toBe(true);
-        wrapper.unmount();
     });
 });

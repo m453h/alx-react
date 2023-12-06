@@ -1,19 +1,32 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
 
 module.exports = {
-    mode: "development",
-    entry: "./src/index.js",
+    mode: 'development',
+    entry: './src/index.js',
+    performance: {
+        maxAssetSize: 1000000,
+        maxEntrypointSize: 1000000,
+    },
     output: {
-        filename: "bundle.js",
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     'file-loader',
                     {
@@ -25,29 +38,13 @@ module.exports = {
                     },
                 ],
             },
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: ["babel-loader"],
-            },
         ],
     },
-    resolve: {
-        extensions: [".js", ".jsx"],
-    },
+    devtool: 'inline-source-map',
     devServer: {
-        static: "./dist",
-        compress: true,
+        contentBase: './dist',
+        port: 8564,
         open: true,
         hot: true,
-        port: 8564,
     },
-    devtool: "inline-source-map",
-    plugins: [
-        new HtmlWebpackPlugin({
-            name: "index.html",
-            inject: false,
-            template: "./dist/index.html",
-        }),
-    ],
 };

@@ -188,5 +188,4 @@ export const mapDispatchToProps = {
     logout,
 };
 
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
-export { ConnectedApp };
+export default connect(mapStateToProps, mapDispatchToProps)(App);
