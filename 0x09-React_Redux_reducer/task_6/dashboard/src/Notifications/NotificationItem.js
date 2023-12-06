@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import { StyleSheet, css } from "aphrodite";
 
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
 
 const NotificationItem = React.memo(function NotificationItem({ type, html, value, id, markAsRead }) {
     const handleItemClick = () => markAsRead(id);
-
     return (
         <li data-notification-type={type} className={type === "default" ? css(styles.defaultNotification) : css(styles.urgentNotification)} onClick={handleItemClick} dangerouslySetInnerHTML={html}>
             {value}

@@ -55,22 +55,19 @@ describe('getNotifications test suite', function() {
 
 describe('getUnreadNotifications test suite', function() {
     it("returns a correct list of the message entities within the reducer", function() {
-        const action = {
-            type: MARK_AS_READ,
-            index: 1
+        const state = {
+            notifications: Map({
+                messages: List([
+                    { id: 1, type: 'default', value: 'New course available', isRead: false },
+                    { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
+                    { id: 3, type: 'urgent', value: 'New data available', isRead: true },
+                ]),
+            }),
         };
-
-        const newState = notificationReducer(initialState, action);
-        const notifications = getUnreadNotifications(newState);
-
-        const expectedState = new Map(fromJS({
-            filter: 'DEFAULT',
-            notifications: [
-                {id: 1, type: "default", value: "New course available", isRead: false},
-                {id: 3, type: "urgent", value: "New data available", isRead: false}
-            ],
-        }));
-
-        expect(notifications).toStrictEqual(expectedState.get('notifications'));
+        const result = getUnreadNotifications(state);
+        expect(result).toEqual([
+            { id: 1, type: 'default', value: 'New course available', isRead: false },
+            { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
+        ]);
     });
 });

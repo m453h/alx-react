@@ -136,7 +136,7 @@ export class Notifications extends React.PureComponent {
                                         value={notification.value}
                                         html={notification.html}
                                         id={notification.id}
-                                        markAsRead={this.props.markNotificationAsRead}
+                                        markAsRead={() => this.props.markNotificationAsRead(notification.guid)}
                                     />
                                 ))
                             ) : (

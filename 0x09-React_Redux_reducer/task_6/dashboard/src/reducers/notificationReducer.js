@@ -20,7 +20,12 @@ export default function notificationReducer(state = Map(initialState), action) {
             const messages = notificationsNormalizer(notificationsList).entities.messages || {};
             return state.mergeDeep({ messages: Object.values(messages) });
         case MARK_AS_READ:
-            return setIn(state, ['notifications', action.index.toString(), 'isRead'], true);
+            console.log(action.index);
+            const index = state.get('messages').findIndex(notification => notification.guid === action.index);
+            if (index !== -1) {
+                return state.setIn(['messages', index, 'isRead'], true);
+            }
+            return state;
         case SET_TYPE_FILTER:
             return Map(state).set('filter', action.filter);
         case SET_LOADING_STATE:
